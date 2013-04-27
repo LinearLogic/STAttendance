@@ -1,0 +1,26 @@
+#STAttendance
+STAttendance is a program designed to aid in maintaining the upper school attendance records at Saint Albans School
+
+##Graphical User Interface
+The STAttendance GUI is designed using the Java Swing libraries and provides an intuitive and elegant way to access the
+various features of the program.
+
+##Database
+The program maintains a flatfile database of teachers, classes, students, and various information for members of each
+category. The contents of the database are updated based on received attendance email and can also be edited in the
+"Database" tab.
+
+##Mail Manager
+Using a Gmail account authenticated at login, the program can dispatch attendance email to teachers listed in the
+database and parse received messages to update the attendance records.
+
+##Exporter
+The contents of the STAttendance database can be written to a properly formatted flatfile in the "Export" tab in order
+to be integrated into the EducationEdge backend.
+
+##Project Info
+<b>Author:</b> LinearLogic
+
+<b>Since:</b> 4/20/2013
+
+<b>Language:</b> Java
