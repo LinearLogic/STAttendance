@@ -4,12 +4,13 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import com.veltro.stattendance.gui.pages.LoginPage;
+import com.veltro.stattendance.gui.pages.MainPage;
 
 /**
  * Main class - contains the {@link #frame GUI window object} and {@link #main(String[]) program entry point}
  * 
  * @author LinearLogic
- * @version 0.0.3
+ * @version 0.0.4
  */
 public class STAttendance {
 
@@ -25,6 +26,17 @@ public class STAttendance {
 		frame = new JFrame("STAttendance");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(new LoginPage());
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
+	/**
+	 * Sets the active JPanel to the {@link MainPage}
+	 */
+	public static void loadMainPage() {
+		frame.getContentPane().removeAll();
+		frame.getContentPane().add(new MainPage());
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);

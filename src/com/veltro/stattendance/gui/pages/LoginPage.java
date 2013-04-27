@@ -1,5 +1,7 @@
 package com.veltro.stattendance.gui.pages;
 
+import com.veltro.stattendance.STAttendance;
+
 /**
  * The LoginPage is a JPanel that presents the user with a login screen requesting a Gmail account name and password.
  * It contains two buttons: one to terminate the program and the other to attempt to login using the provided
@@ -162,9 +164,11 @@ public class LoginPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
+    	System.exit(0);
     }//GEN-LAST:event_quitButtonActionPerformed
 
     private void logonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logonButtonActionPerformed
+    	STAttendance.loadMainPage();
     }//GEN-LAST:event_logonButtonActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
