@@ -10,7 +10,7 @@ import com.veltro.stattendance.gui.pages.MainPage;
  * Main class - contains the {@link #frame GUI window object} and {@link #main(String[]) program entry point}
  * 
  * @author LinearLogic
- * @version 0.1.1
+ * @version 0.1.2
  */
 public class STAttendance {
 
@@ -55,14 +55,14 @@ public class STAttendance {
 	 * @param account The username of the Gmail account to bind to the mailer
 	 * @param password The password to the above account
 	 */
-	public void loadMailer(String account, String password) {
+	public static void loadMailer(String account, String password) {
 		mailer = new MailMaster(account, password);
 	}
 
 	/**
 	 * @return The current {@link #mailer}
 	 */
-	public MailMaster getMailer() {
+	public static MailMaster getMailer() {
 		return mailer;
 	}
 
