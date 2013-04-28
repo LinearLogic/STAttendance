@@ -13,11 +13,13 @@ import com.veltro.stattendance.STAttendance;
 public class LoginPage extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel accTooShortLabel;
     private javax.swing.JTextField accountField;
     private javax.swing.JLabel accountLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton logonButton;
+    private javax.swing.JLabel passTooShortLabel;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JButton quitButton;
@@ -30,6 +32,8 @@ public class LoginPage extends javax.swing.JPanel {
      */
     public LoginPage() {
         initComponents();
+		accTooShortLabel.setVisible(false);
+		passTooShortLabel.setVisible(false);
     }
 
     /**
@@ -48,6 +52,8 @@ public class LoginPage extends javax.swing.JPanel {
         passwordLabel = new javax.swing.JLabel();
         accountField = new javax.swing.JTextField();
         accountLabel = new javax.swing.JLabel();
+        accTooShortLabel = new javax.swing.JLabel();
+        passTooShortLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(241, 241, 241));
 
@@ -113,6 +119,14 @@ public class LoginPage extends javax.swing.JPanel {
 
         accountLabel.setText("Account:");
 
+        accTooShortLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        accTooShortLabel.setForeground(new java.awt.Color(128, 0, 0));
+        accTooShortLabel.setText("Too short!");
+
+        passTooShortLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        passTooShortLabel.setForeground(new java.awt.Color(128, 0, 0));
+        passTooShortLabel.setText("Too short!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,22 +136,28 @@ public class LoginPage extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(passwordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(accountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(accountField)
-                            .addComponent(passwordField)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(quitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logonButton))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(30, 30, 30)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(passwordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(accountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(accountField)
+                                .addComponent(passwordField)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(quitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(logonButton)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(accTooShortLabel)
+                                .addComponent(passTooShortLabel))
+                            .addGap(20, 20, 20))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(32, 32, 32)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -150,11 +170,13 @@ public class LoginPage extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(accountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(accountLabel))
+                    .addComponent(accountLabel)
+                    .addComponent(accTooShortLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordLabel))
+                    .addComponent(passwordLabel)
+                    .addComponent(passTooShortLabel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(quitButton)
@@ -163,17 +185,51 @@ public class LoginPage extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+	/**
+	 * Moves the cursor to the {@link #accountField}
+	 */
+	public void activateCursor() {
+		accountField.requestFocusInWindow();
+	}
+
+	/**
+	 * Checks to ensure that the account and password fields have been filled in, and then switches to a loading screen
+	 * while verifying the provided Gmail account and (if the verification was successful) loading the database.
+	 */
+	private void switchToMainPage() {
+		String user = accountField.getText();
+		String pass = String.valueOf(passwordField.getPassword());
+		if (user == null || user.length() < 6) {
+			accTooShortLabel.setVisible(true);
+			accountField.setText(null);
+			passwordField.setText(null);
+			accountField.requestFocusInWindow();
+			return;
+		}
+		accTooShortLabel.setVisible(false);
+		if (pass == null || pass.length() < 8) {
+			passTooShortLabel.setVisible(true);
+			accountField.setText(null);
+			accountField.requestFocusInWindow();
+			return;
+		}
+		passTooShortLabel.setVisible(false);
+		STAttendance.loadMainPage();
+	}
+
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
     	System.exit(0);
     }//GEN-LAST:event_quitButtonActionPerformed
 
     private void logonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logonButtonActionPerformed
-    	STAttendance.loadMainPage();
+    	switchToMainPage();
     }//GEN-LAST:event_logonButtonActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
+    	switchToMainPage();
     }//GEN-LAST:event_passwordFieldActionPerformed
 
     private void accountFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountFieldActionPerformed
+		passwordField.requestFocusInWindow();
     }//GEN-LAST:event_accountFieldActionPerformed
 }
