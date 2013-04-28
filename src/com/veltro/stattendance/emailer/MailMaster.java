@@ -1,4 +1,4 @@
-package com.veltro.stattendance;
+package com.veltro.stattendance.emailer;
 
 import java.util.Properties;
 

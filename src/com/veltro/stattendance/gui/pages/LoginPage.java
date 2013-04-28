@@ -1,7 +1,7 @@
 package com.veltro.stattendance.gui.pages;
 
-import com.veltro.stattendance.MailMaster;
 import com.veltro.stattendance.STAttendance;
+import com.veltro.stattendance.emailer.MailMaster;
 
 /**
  * The LoginPage is a JPanel that presents the user with a login screen requesting a Gmail account name and password.
