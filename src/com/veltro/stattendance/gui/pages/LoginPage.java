@@ -1,5 +1,6 @@
 package com.veltro.stattendance.gui.pages;
 
+import com.veltro.stattendance.MailMaster;
 import com.veltro.stattendance.STAttendance;
 
 /**
@@ -16,6 +17,8 @@ public class LoginPage extends javax.swing.JPanel {
     private javax.swing.JLabel accTooShortLabel;
     private javax.swing.JTextField accountField;
     private javax.swing.JLabel accountLabel;
+    private javax.swing.JLabel authErrorLabel;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton logonButton;
@@ -34,6 +37,7 @@ public class LoginPage extends javax.swing.JPanel {
         initComponents();
 		accTooShortLabel.setVisible(false);
 		passTooShortLabel.setVisible(false);
+		authErrorLabel.setVisible(false);
     }
 
     /**
@@ -54,6 +58,8 @@ public class LoginPage extends javax.swing.JPanel {
         accountLabel = new javax.swing.JLabel();
         accTooShortLabel = new javax.swing.JLabel();
         passTooShortLabel = new javax.swing.JLabel();
+        authErrorLabel = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
 
         setBackground(new java.awt.Color(241, 241, 241));
 
@@ -85,7 +91,7 @@ public class LoginPage extends javax.swing.JPanel {
         welcomeText1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         welcomeText1.setForeground(new java.awt.Color(0, 0, 128));
         welcomeText1.setLineWrap(true);
-        welcomeText1.setRows(3);
+        welcomeText1.setRows(1);
         welcomeText1.setText("Welcome to the STA class attendance helper!");
         welcomeText1.setBorder(null);
         welcomeText1.setRequestFocusEnabled(false);
@@ -100,7 +106,7 @@ public class LoginPage extends javax.swing.JPanel {
         welcomeText2.setColumns(5);
         welcomeText2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         welcomeText2.setLineWrap(true);
-        welcomeText2.setRows(3);
+        welcomeText2.setRows(2);
         welcomeText2.setTabSize(4);
         welcomeText2.setText("Please enter your Gmail username and password\n\t\tbelow to get started.");
         welcomeText2.setBorder(null);
@@ -127,6 +133,10 @@ public class LoginPage extends javax.swing.JPanel {
         passTooShortLabel.setForeground(new java.awt.Color(128, 0, 0));
         passTooShortLabel.setText("Too short!");
 
+        authErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        authErrorLabel.setForeground(new java.awt.Color(128, 0, 0));
+        authErrorLabel.setText("Invalid username/password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,26 +147,37 @@ public class LoginPage extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(passwordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(accountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(accountField)
-                            .addComponent(passwordField)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(quitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logonButton)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passTooShortLabel)
-                            .addComponent(accTooShortLabel))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(passwordLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(quitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(logonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(passwordField)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(accountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(4, 4, 4)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(authErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(accountField))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(4, 4, 4)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(accTooShortLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(passTooShortLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,17 +186,23 @@ public class LoginPage extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(authErrorLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(accountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(accountLabel)
+                    .addComponent(accountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(accTooShortLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordLabel)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passTooShortLabel))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(quitButton)
                     .addComponent(logonButton))
@@ -199,21 +226,27 @@ public class LoginPage extends javax.swing.JPanel {
 		String pass = String.valueOf(passwordField.getPassword());
 		accTooShortLabel.setVisible(false);
 		passTooShortLabel.setVisible(false);
-		boolean valid = true;
+		authErrorLabel.setVisible(false);
 		if (user == null || user.length() < 6) { // Gmail usernames must be at least six characters in length
 			accTooShortLabel.setVisible(true);
-			valid = false;
-		}
-		if (pass == null || pass.length() < 8) { // Gmail passwords must contain at least eight characters
-			passTooShortLabel.setVisible(true);
-			valid = false;
-		}
-		if (!valid) {
 			accountField.setText(null);
 			passwordField.setText(null);
 			accountField.requestFocusInWindow();
 			return;
 		}
+		if (pass == null || pass.length() < 8) { // Gmail passwords must contain at least eight characters
+			passTooShortLabel.setVisible(true);
+			passwordField.setText(null);
+			passwordField.requestFocusInWindow();
+			return;
+		}
+		if (!MailMaster.verifyAccount(user, pass)) {
+			passwordField.setText(null);
+			passwordField.requestFocusInWindow();
+			authErrorLabel.setVisible(true);
+			return;
+		}
+		STAttendance.loadMailer(user, pass);
 		STAttendance.loadMainPage();
 	}
 
@@ -226,10 +259,10 @@ public class LoginPage extends javax.swing.JPanel {
     }//GEN-LAST:event_logonButtonActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
-    	switchToMainPage();
+        switchToMainPage();
     }//GEN-LAST:event_passwordFieldActionPerformed
 
     private void accountFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountFieldActionPerformed
-		passwordField.requestFocusInWindow();
+        passwordField.requestFocusInWindow();
     }//GEN-LAST:event_accountFieldActionPerformed
 }
