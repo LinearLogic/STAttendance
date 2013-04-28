@@ -10,7 +10,7 @@ import com.veltro.stattendance.gui.pages.MainPage;
  * Main class - contains the {@link #frame GUI window object} and {@link #main(String[]) program entry point}
  * 
  * @author LinearLogic
- * @version 0.0.5
+ * @version 0.1.1
  */
 public class STAttendance {
 
@@ -18,6 +18,11 @@ public class STAttendance {
 	 * The highest-level container of Swing components (the program window)
 	 */
 	private static JFrame frame;
+
+	/**
+	 * The utility class for verifying Gmail accounts, sending email, and parsing received messages
+	 */
+	private static MailMaster mailer;
 
 	/**
 	 * Sets up the {@link #frame GUI window} and sets the active JPanel to the {@link LoginPage}
@@ -42,6 +47,23 @@ public class STAttendance {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+	}
+
+	/**
+	 * Initializes the {@link #mailer} to a MailMaster object with the provided account information
+	 * 
+	 * @param account The username of the Gmail account to bind to the mailer
+	 * @param password The password to the above account
+	 */
+	public void loadMailer(String account, String password) {
+		mailer = new MailMaster(account, password);
+	}
+
+	/**
+	 * @return The current {@link #mailer}
+	 */
+	public MailMaster getMailer() {
+		return mailer;
 	}
 
 	/**
