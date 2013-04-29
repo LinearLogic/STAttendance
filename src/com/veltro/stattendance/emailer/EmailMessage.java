@@ -43,7 +43,7 @@ public class EmailMessage {
 	 */
 	public EmailMessage(String subject, String body) {
 		recipients = new HashSet<String>();
-		this.subject = (subject == null) ? "" : subject;
+		this.subject = (subject == null) ? "" : subject.split("\n")[0];
 		this.body = (body == null) ? "" : body;
 	}
 
