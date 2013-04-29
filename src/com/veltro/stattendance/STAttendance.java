@@ -13,7 +13,7 @@ import com.veltro.stattendance.gui.pages.MainPage;
  * Main class - contains the {@link #frame GUI window object} and {@link #main(String[]) program entry point}
  * 
  * @author LinearLogic
- * @version 0.1.6
+ * @version 0.2.1
  */
 public class STAttendance {
 
