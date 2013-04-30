@@ -53,9 +53,8 @@ public class EmailMessage {
 	public String[] getRecipients() {
 		String[] output = new String[recipients.size()];
 		int index = 0;
-		for (String s : recipients) {
+		for (String s : recipients)
 			output[index++] = s;
-		}
 		return output;
 	}
 
