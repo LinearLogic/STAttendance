@@ -1,5 +1,7 @@
 package com.veltro.stattendance.database;
 
+import java.util.ArrayList;
+
 /**
  * Represents an upper school teacher at STA. Each teacher has a unique integer ID, contact information, and a list of
  * the ID values of classes he or she teaches.
@@ -40,6 +42,11 @@ public class Teacher {
 	 * The teacher's cell number, represented however the user chooses. This field is optional.
 	 */
 	private String phoneNumber;
+
+	/**
+	 * A list of the names of classes that the teacher is in charge of
+	 */
+	private ArrayList<String> classes;
 
 	/**
 	 * Simplified constructor - requires only the mandatory teacher attributes
@@ -125,5 +132,41 @@ public class Teacher {
 
 	public void setPhoneNumber(String number) {
 		phoneNumber = number;
+	}
+
+	public String[] getClasses() {
+		String[] output = new String[classes.size()];
+		int index = 0;
+		for (String className : classes)
+			output[index++] = className;
+		return output;
+	}
+
+	public boolean addClass(STAClass c)  {
+		return classes.add(c.getName());
+	}
+
+	public boolean isInClass(STAClass c) {
+		return classes.contains(c.getName());
+	}
+
+	public boolean isInClass(String className) {
+		return classes.contains(className);
+	}
+
+	public boolean addClass(String className) {
+		return classes.add(className);
+	}
+
+	public boolean removeClass(STAClass c) {
+		return classes.remove(c.getName());
+	}
+
+	public boolean removeClass(String className) {
+		return classes.remove(className);
+	}
+
+	public void clearClasses() {
+		classes.clear();
 	}
 }
