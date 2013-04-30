@@ -2,7 +2,7 @@ package com.veltro.stattendance.database;
 
 /**
  * Represents an upper school teacher at STA. Each teacher has a unique integer ID, contact information, and a list of
- * classes he or she teaches.
+ * the ID values of classes he or she teaches.
  * 
  * @author LinearLogic
  * @since 0.2.1
@@ -10,19 +10,26 @@ package com.veltro.stattendance.database;
 public class Teacher {
 
 	/**
-	 * The teacher's unique ID number, issued by the school
+	 * The teacher's unique identification number, issued by the school
 	 */
 	private int id;
-
-	/**
-	 * This field is optional
-	 */
-	private String firstName;
 
 	/**
 	 * The teacher's legal last name, as registered with the school
 	 */
 	private String lastName;
+
+	/**
+	 * The teacher's first name, used to differentiate between faculty with identical last names. This field is
+	 * optional.
+	 */
+	private String firstName;
+
+	/**
+	 * The teacher's middle name, used to differentiate between faculty with identical first and last names. This
+	 * field is optional.
+	 */
+	private String middleName;
 
 	/**
 	 * The email address to which attendance messages should be sent (example: "jheath@cathedral.org")
@@ -35,26 +42,28 @@ public class Teacher {
 	private String phoneNumber;
 
 	/**
-	 * Simple constructor - requires only the mandatory teacher attributes
+	 * Simplified constructor - requires only the mandatory teacher attributes
 	 * 
-	 * @param id The teacher's {@link #id} number
+	 * @param id The teacher's {@link #id ID number}
 	 * @param lastName The teacher's {@link #lastName last name}
 	 * @param emailAddress The teacher's {@link #email} address, represented as a string in the format "name@site.com"
 	 */
 	public Teacher(int id, String lastName, String emailAddress) {
-		this(id, "", lastName, emailAddress, "");
+		this(id, lastName, "", "", emailAddress, "");
 	}
 
 	/**
 	 * Complete constructor - includes optional fields
 	 * 
-	 * @param id The teacher's {@link #id} number
-	 * @param firstName The teacher's {@link #firstName first name}
+	 * @param id The teacher's {@link #id ID number}
 	 * @param lastName The teacher's {@link #lastName last name}
+	 * @param firstName The teacher's {@link #firstName first name}
+	 * @param middleName The teacher's {@link #middleName middle name}
 	 * @param emailAddress The teacher's {@link #email} address, represented as a string in the format "name@site.com"
 	 * @param phoneNumber A string representation of the teacher's phone number
 	 */
-	public Teacher(int id, String firstName, String lastName, String emailAddress, String phoneNumber) {
+	public Teacher(int id, String lastName, String firstName, String middleName, String emailAddress,
+			String phoneNumber) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -69,6 +78,14 @@ public class Teacher {
 	public void setID(int id) {
 		this.id = id;
 	}
+	
+	public String getLastName() {
+		return (lastName == null) ? "" : lastName;
+	}
+	
+	public void setLastName(String name) {
+		lastName = name;
+	}
 
 	public String getFirstName() {
 		return (firstName == null) ? "" : firstName;
@@ -78,14 +95,17 @@ public class Teacher {
 		firstName = name;
 	}
 
-	public String getLastName() {
-		return (lastName == null) ? "" : lastName;
+	public String getMiddleName() {
+		return (middleName == null) ? "" : middleName;
 	}
 
-	public void setLastName(String name) {
-		lastName = name;
+	public void setMiddleName(String name) {
+		middleName = name;
 	}
 
+	/**
+	 * @return The teacher's {@link #email email address} in the format "name@site.com"
+	 */
 	public String getEmailAddress() {
 		return (email == null) ? "" : email;
 	}

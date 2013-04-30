@@ -135,7 +135,7 @@ public class LoginPage extends javax.swing.JPanel {
 
         authErrorLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         authErrorLabel.setForeground(new java.awt.Color(128, 0, 0));
-        authErrorLabel.setText("Invalid username/password");
+        authErrorLabel.setText("Authentication error");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
