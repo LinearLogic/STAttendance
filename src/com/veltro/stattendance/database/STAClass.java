@@ -1,6 +1,7 @@
 package com.veltro.stattendance.database;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents an upper school class at STA. Each class has a unique name string (containing title and section) and a
@@ -31,15 +32,20 @@ public class STAClass {
 	private int teacherID;
 
 	/**
-	 * A list containing the unique identification number for each student enrolled in the class.
+	 * A directory of attendance record entries (stored as integers formatted as shown below) indexed by student. Only
+	 * instances of absence or tardiness are recorded; no entry should be made if a student is in class on time.
+	 * <p>
+	 * <b>Entry values:</b>
+	 * Absences: excused = 0, unexcused = -1, senior cut = -2<br>
+	 * Tardiness: the entry value is the number of minutes the student was late to class
 	 */
-	private HashSet<Integer> studentIDs = new HashSet<Integer>();
+	private HashMap<Integer, ArrayList<Integer>> studentRecords;
 
 	/**
 	 * Constructor - initializes the class's {@link #name}, {@link #periods}, and {@link #teacherID} and instantiates
-	 * an empty {@link #studentIDs list of student IDs}
+	 * an empty {@link #studentRecords list of student IDs}
 	 * 
-	 * @param name A string formatted liek so: "department.className-sectionNumber"
+	 * @param name A string formatted like so: "department.className-sectionNumber"
 	 * @param periods An array of the periods during which the class is held, represented as numerical byte values
 	 * @param teacherID The identification number of the teacher of the class
 	 */
@@ -47,6 +53,7 @@ public class STAClass {
 		this.name = name;
 		this.periods = periods;
 		this.teacherID = teacherID;
+		studentRecords = new HashMap<Integer, ArrayList<Integer>>();
 	}
 
 	public String getName() {
@@ -74,38 +81,51 @@ public class STAClass {
 	}
 
 	public int[] getStudentIDs() {
-		int[] output = new int[studentIDs.size()];
+		int[] output = new int[studentRecords.size()];
 		int index = 0;
-		for (int id : studentIDs)
+		for (int id : studentRecords.keySet())
 			output[index++] = id;
 		return output;
 	}
 
 	public boolean containsStudent(Student student) {
-		return studentIDs.contains(student.getID());
+		return studentRecords.containsKey(student.getID());
 	}
 
 	public boolean containsStudent(int studentID) {
-		return studentIDs.contains(studentID);
+		return studentRecords.containsKey(studentID);
 	}
 
-	public boolean addStudent(Student student) {
-		return studentIDs.add(student.getID());
+	public void addStudent(Student student) {
+		studentRecords.put(student.getID(), new ArrayList<Integer>());
 	}
 
-	public boolean addStudent(int studentID) {
-		return studentIDs.add(studentID);
+	public void addStudent(int studentID) {
+		studentRecords.put(studentID, new ArrayList<Integer>());
 	}
 
-	public boolean removeStudent(Student student) {
-		return studentIDs.remove((Integer) student.getID());
+	public void removeStudent(Student student) {
+		studentRecords.remove(student.getID());
 	}
 
-	public boolean removeStudent(int studentID) {
-		return studentIDs.remove((Integer) studentID);
+	public void removeStudent(int studentID) {
+		studentRecords.remove(studentID);
 	}
 
 	public void removeAllStudents() {
-		studentIDs.clear();
+		studentRecords.clear();
+	}
+
+	public int[] getAttendanceRecords(Student s) {
+		return getAttendanceRecords(s.getID());
+	}
+
+	public int[] getAttendanceRecords(int studentID) {
+		ArrayList<Integer> studentHistory = studentRecords.get(studentID);
+		int[] output = new int[studentHistory.size()];
+		int index = 0;
+		for (int entry : studentHistory)
+			output[index++] = entry;
+		return output;
 	}
 }

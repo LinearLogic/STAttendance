@@ -75,9 +75,8 @@ public class ClassMaster {
 	 * @return 'true' iff the student and class objects were successfully updated
 	 */
 	public boolean addStudentToClass(Student s, STAClass c) {
-		boolean a = s.addClass(c);
-		boolean b = c.addStudent(s);
-		return a && b;
+		c.addStudent(s);
+		return s.addClass(c);
 	}
 
 
@@ -89,9 +88,8 @@ public class ClassMaster {
 	 * @return 'true' iff the student and class objects were successfully updated
 	 */
 	public boolean removeStudentFromClass(Student s, STAClass c) {
-		boolean a = s.removeClass(c);
-		boolean b = c.removeStudent(s);
-		return a && b;
+		c.removeStudent(s);
+		return s.removeClass(c);
 	}
 
 	public STAClass[] getClasses() {
