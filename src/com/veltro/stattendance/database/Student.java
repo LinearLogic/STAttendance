@@ -1,6 +1,6 @@
 package com.veltro.stattendance.database;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Represents an upper school student at STA. Each student has a unique integer ID, contact information, a form (grade)
@@ -41,7 +41,7 @@ public class Student {
 	/**
 	 * A list of the names of classes in which the student is enrolled
 	 */
-	private ArrayList<String> classes;
+	private HashSet<String> classes;
 
 	/**
 	 * Simplified constructor - requires only the mandatory student attributes

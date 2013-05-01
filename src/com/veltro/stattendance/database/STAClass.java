@@ -1,6 +1,6 @@
 package com.veltro.stattendance.database;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Represents an upper school class at STA. Each class has a unique name string (containing title and section) and a
@@ -33,7 +33,7 @@ public class STAClass {
 	/**
 	 * A list containing the unique identification number for each student enrolled in the class.
 	 */
-	private ArrayList<Integer> studentIDs = new ArrayList<Integer>();
+	private HashSet<Integer> studentIDs = new HashSet<Integer>();
 
 	/**
 	 * Constructor - initializes the class's {@link #name}, {@link #periods}, and {@link #teacherID} and instantiates

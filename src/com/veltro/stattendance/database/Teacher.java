@@ -1,6 +1,6 @@
 package com.veltro.stattendance.database;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Represents an upper school teacher at STA. Each teacher has a unique integer ID, contact information, and a list of
@@ -46,7 +46,7 @@ public class Teacher {
 	/**
 	 * A list of the names of classes that the teacher is in charge of
 	 */
-	private ArrayList<String> classes;
+	private HashSet<String> classes;
 
 	/**
 	 * Simplified constructor - requires only the mandatory teacher attributes
