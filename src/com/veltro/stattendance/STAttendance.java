@@ -5,6 +5,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.veltro.stattendance.database.ClassMaster;
 import com.veltro.stattendance.emailer.MailMaster;
 import com.veltro.stattendance.gui.pages.LoginPage;
 import com.veltro.stattendance.gui.pages.MainPage;
@@ -21,6 +22,11 @@ public class STAttendance {
 	 * The highest-level container of Swing components (the program window)
 	 */
 	private static JFrame frame;
+
+	/**
+	 * The hub of database, the {@link ClassMaster} contains all methods for retrieving and editing database entries
+	 */
+	private static ClassMaster database;
 
 	/**
 	 * The utility class for verifying Gmail accounts, sending email, and parsing received messages
@@ -50,6 +56,11 @@ public class STAttendance {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		database = new ClassMaster();
+	}
+
+	public static ClassMaster getDatabase() {
+		return database;
 	}
 
 	/**
