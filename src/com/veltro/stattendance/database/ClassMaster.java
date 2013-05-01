@@ -106,15 +106,48 @@ public class ClassMaster {
 		classes.put(c.getName(), c);
 	}
 
+	/**
+	 * Removes the name of the provided {@link STAClass} from the teacher of the class and the students enrolled in it,
+	 * and then deletes the class's entry in the {@link #classes class directory}
+	 * 
+	 * @param className The name of the class to be removed from the database
+	 */
 	public void removeClass(STAClass c) {
-		classes.remove(c.getName());
+		removeClass(c.getName());
 	}
 
+	/**
+	 * Removes the provided {@link STAClass class} name from the teacher of the class and the students enrolled in it,
+	 * and then deletes the class's entry in the {@link #classes class directory}
+	 * 
+	 * @param className The name of the class to be removed from the database
+	 */
 	public void removeClass(String className) {
+		STAClass c = classes.get(className);
+		if (c == null)
+			return;
+		try {
+			teachers.remove((Integer) c.getTeacherID());
+		} catch (NullPointerException e) { }
+		for (int id : c.getStudentIDs()) {
+			try {
+				students.get((Integer) id).removeClass(className);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
 		classes.remove(className);
 	}
 
-	public void clearClass() {
+	/**
+	 * Removes every class name from every teacher and student the respective directories, and then clears the
+	 * {@link #classes class directory}
+	 */
+	public void clearClasses() {
+		for (Teacher t : teachers.values())
+			t.clearClasses();
+		for (Student s : students.values())
+			s.clearClasses();
 		classes.clear();
 	}
 
@@ -130,15 +163,44 @@ public class ClassMaster {
 		teachers.put(t.getID(), t);
 	}
 
+	/**
+	 * Calls the {@link #removeTeacher(int)} method passing the ID of the provided {@link Teacher} object
+	 * 
+	 * @param t The teacher to be removed from the database
+	 */
 	public void removeTeacher(Teacher t) {
-		teachers.remove(t.getID());
+		removeTeacher(t.getID());
 	}
 
+	/**
+	 * Removes the provided teacher ID from all the classes taught by the faculty member being removed, and then
+	 * deletes the teacher's entry in the {@link #teachers teacher directory}
+	 * 
+	 * @param t The ID number of the teacher to be removed from the database
+	 */
 	public void removeTeacher(int teacherID) {
+		String[] names;
+		try {
+			names = teachers.get((Integer) teacherID).getClasses();
+		} catch (NullPointerException e) {
+			return;
+		}
+		for (String n : names) {
+			try {
+				classes.get(n).setTeacherID(-1);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
 		teachers.remove(teacherID);
 	}
 
+	/**
+	 * Sets the teacherID of each {@link STAClass} to -1 and clears the {@link #teachers teacher directory}
+	 */
 	public void clearTeachers() {
+		for (STAClass c : classes.values())
+			c.setTeacherID(-1);
 		teachers.clear();
 	}
 
@@ -154,15 +216,44 @@ public class ClassMaster {
 		students.put(s.getID(), s);
 	}
 
+	/**
+	 * Calls the {@link #removeStudent(int)} method passing the ID of the provided {@link Student} object
+	 * 
+	 * @param s The student to be deleted from the database
+	 */
 	public void removeStudent(Student s) {
-		students.remove(s.getID());
+		removeStudent(s.getID());
 	}
 
+	/**
+	 * Removes the provided student ID from all the classes in which the student is enrolled, and then deletes the
+	 * student's entry in the {@link #students student directory}
+	 * 
+	 * @param s The ID number of the student to be deleted from the database
+	 */
 	public void removeStudent(int studentID) {
+		String[] names;
+		try {
+			names = students.get((Integer) studentID).getClasses();
+		} catch (NullPointerException e) {
+			return;
+		}
+		for (String n : names) {
+			try {
+				classes.get(n).removeStudent(studentID);
+			} catch (NullPointerException e) {
+				continue;
+			}
+		}
 		students.remove(studentID);
 	}
 
+	/**
+	 * Removes all student IDs from all classes and then clears the {@link #students student directory}
+	 */
 	public void clearstudents() {
+		for (STAClass c: classes.values())
+			c.removeAllStudents();
 		students.clear();
 	}
 }
