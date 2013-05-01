@@ -35,6 +35,65 @@ public class ClassMaster {
 		students = new HashMap<Integer, Student>();
 	}
 
+	/**
+	 * Adds the provided {@link STAClass} to the provided {@link Teacher} and sets the class's teacherID to that of the
+	 * provided teacher. The class is also removed from its old teacher's class list.
+	 * 
+	 * @param c One of the classes contained in the {@link #classes class directory}
+	 * @param t One of the teachers contained in the {@link #teachers teacher directory}
+	 * @return 'true' iff the teacher and class objects were successfully updated
+	 */
+	public boolean addClassToTeacher(STAClass c, Teacher t) {
+		try {
+			teachers.get(c.getTeacherID()).removeClass(c.getName());
+		} catch (NullPointerException e) { }
+		c.setTeacherID(t.getID());
+		return t.addClass(c);
+	}
+
+	/**
+	 * Removes the provided {@link STAClass} from the provided {@link Teacher} and sets the class's teacherID to -1,
+	 * signifying no teacher.
+	 * 
+	 * @param c One of the classes contained in the {@link #classes class directory}
+	 * @param t One of the teachers contained in the {@link #teachers teacher directory}
+	 * @return 'true' iff the teacher and class objects were successfully updated
+	 */
+	public boolean removeClassFromTeacher(STAClass c, Teacher t) {
+		boolean removed = t.removeClass(c);
+		if (!removed)
+			return false;
+		c.setTeacherID(-1);
+		return true;
+	}
+
+	/**
+	 * Adds the provided {@link Student} to the provided {@link STAClass} and vice versa
+	 * 
+	 * @param s One of the students contained in the {@link #students student directory}
+	 * @param c One of the classes contained in the {@link #classes class directory}
+	 * @return 'true' iff the student and class objects were successfully updated
+	 */
+	public boolean addStudentToClass(Student s, STAClass c) {
+		boolean a = s.addClass(c);
+		boolean b = c.addStudent(s);
+		return a && b;
+	}
+
+
+	/**
+	 * Removes the provided {@link Student} from the provided {@link STAClass} and vice versa
+	 * 
+	 * @param s One of the students contained in the {@link #students student directory}
+	 * @param c One of the classes contained in the {@link #classes class directory}
+	 * @return 'true' iff the student and class objects were successfully updated
+	 */
+	public boolean removeStudentFromClass(Student s, STAClass c) {
+		boolean a = s.removeClass(c);
+		boolean b = c.removeStudent(s);
+		return a && b;
+	}
+
 	public STAClass[] getClasses() {
 		STAClass[] output = new STAClass[classes.size()];
 		int index = 0;
