@@ -3,6 +3,7 @@ package com.veltro.stattendance.gui.pages;
 import com.veltro.stattendance.STAttendance;
 import com.veltro.stattendance.emailer.EmailMessage;
 import com.veltro.stattendance.emailer.EmailTemplate;
+import javax.swing.JFrame;
 
 /**
  * The MainPage JPanel is the hub of user activity. Its functions are separated into three tabs--one for accessing the
@@ -13,6 +14,45 @@ import com.veltro.stattendance.emailer.EmailTemplate;
  */
 public class MainPage extends javax.swing.JPanel{
 
+	private EmailerProgressDialog emailerProgressBox;
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel composeActionPanel;
+    private javax.swing.JButton composeDiscardButton;
+    private javax.swing.JScrollPane composeMessageScroll;
+    private javax.swing.JTextArea composeMessageText;
+    private javax.swing.JPanel composePanel;
+    private javax.swing.JLabel composeRecipientsLabel;
+    private javax.swing.JScrollPane composeRecipientsScroll;
+    private javax.swing.JTextArea composeRecipientsText;
+    private javax.swing.JButton composeSendButton;
+    private javax.swing.JLabel composeSubjectLabel;
+    private javax.swing.JScrollPane composeSubjectScroll;
+    private javax.swing.JTextArea composeSubjectText;
+    private javax.swing.JPanel emailerPanel;
+    private javax.swing.JTabbedPane emailerTab;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JButton generalComposeButton;
+    private javax.swing.JButton generalEditTemplatesButton;
+    private javax.swing.JPanel generalPanel;
+    private javax.swing.JSeparator generalSeparator;
+    private javax.swing.JLabel generalTemplateLabel;
+    private javax.swing.JComboBox generalTemplateMenu;
+    private javax.swing.JLabel generalTitle;
+    private javax.swing.JButton greenEditButton;
+    private javax.swing.JPanel greenPanel;
+    private javax.swing.JButton greenSendButton;
+    private javax.swing.JSeparator greenSeparator;
+    private javax.swing.JLabel greenTitle;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JButton receiveButton;
+    private javax.swing.JTextArea receiveInfo1;
+    private javax.swing.JTextArea receiveInfo2;
+    private javax.swing.JPanel receivePanel;
+    private javax.swing.JPanel sendPanel;
+    // End of variables declaration//GEN-END:variables
+
     /**
      * Creates a new MainPage panel
      */
@@ -20,6 +60,7 @@ public class MainPage extends javax.swing.JPanel{
         initComponents();
 		hideComposePanel();
 		generalTemplateMenu.addItem(new EmailTemplate("Blank message"));
+		emailerProgressBox = new EmailerProgressDialog(STAttendance.getFrame(), true);
     }
 
 	/**
@@ -75,6 +116,17 @@ public class MainPage extends javax.swing.JPanel{
 		composeSubjectText.setText(null);
 		composeMessageText.setText(null);
 	}
+
+	/**
+	 * Constructs the {@link #progressBox} with the provided values
+	 * 
+	 * @param parent The JFrame that is to contain the dialog box
+	 * @param modal Whether the dialog should be modal (if modal, underlying GUI components cannot be interacted with)
+	 */
+	public void loadEmailerProgressBox(JFrame parent, boolean modal) {
+		emailerProgressBox = new EmailerProgressDialog(parent, modal);
+	}
+
     /**
      * Initializes the components of the panel
      */
@@ -479,6 +531,7 @@ public class MainPage extends javax.swing.JPanel{
     }// </editor-fold>//GEN-END:initComponents
 
     private void receiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiveButtonActionPerformed
+		emailerProgressBox.loadInParseMode();
     }//GEN-LAST:event_receiveButtonActionPerformed
 
     private void generalTemplateMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generalTemplateMenuActionPerformed
@@ -492,6 +545,7 @@ public class MainPage extends javax.swing.JPanel{
     }//GEN-LAST:event_greenEditButtonActionPerformed
 
     private void greenSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenSendButtonActionPerformed
+		emailerProgressBox.loadInSendMode();
     }//GEN-LAST:event_greenSendButtonActionPerformed
 
     private void composeSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeSendButtonActionPerformed
@@ -509,41 +563,4 @@ public class MainPage extends javax.swing.JPanel{
     private void composeDiscardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeDiscardButtonActionPerformed
         hideComposePanel();
     }//GEN-LAST:event_composeDiscardButtonActionPerformed
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel composeActionPanel;
-    private javax.swing.JButton composeDiscardButton;
-    private javax.swing.JScrollPane composeMessageScroll;
-    private javax.swing.JTextArea composeMessageText;
-    private javax.swing.JPanel composePanel;
-    private javax.swing.JLabel composeRecipientsLabel;
-    private javax.swing.JScrollPane composeRecipientsScroll;
-    private javax.swing.JTextArea composeRecipientsText;
-    private javax.swing.JButton composeSendButton;
-    private javax.swing.JLabel composeSubjectLabel;
-    private javax.swing.JScrollPane composeSubjectScroll;
-    private javax.swing.JTextArea composeSubjectText;
-    private javax.swing.JPanel emailerPanel;
-    private javax.swing.JTabbedPane emailerTab;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.JButton generalComposeButton;
-    private javax.swing.JButton generalEditTemplatesButton;
-    private javax.swing.JPanel generalPanel;
-    private javax.swing.JSeparator generalSeparator;
-    private javax.swing.JLabel generalTemplateLabel;
-    private javax.swing.JComboBox generalTemplateMenu;
-    private javax.swing.JLabel generalTitle;
-    private javax.swing.JButton greenEditButton;
-    private javax.swing.JPanel greenPanel;
-    private javax.swing.JButton greenSendButton;
-    private javax.swing.JSeparator greenSeparator;
-    private javax.swing.JLabel greenTitle;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JButton receiveButton;
-    private javax.swing.JTextArea receiveInfo1;
-    private javax.swing.JTextArea receiveInfo2;
-    private javax.swing.JPanel receivePanel;
-    private javax.swing.JPanel sendPanel;
-    // End of variables declaration//GEN-END:variables
 }

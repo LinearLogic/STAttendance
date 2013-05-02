@@ -14,7 +14,7 @@ import com.veltro.stattendance.gui.pages.MainPage;
  * Main class - contains the {@link #frame GUI window object} and {@link #main(String[]) program entry point}
  * 
  * @author LinearLogic
- * @version 0.3.7
+ * @version 0.3.8
  */
 public class STAttendance {
 
@@ -57,6 +57,10 @@ public class STAttendance {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		database = new ClassMaster();
+	}
+
+	public static JFrame getFrame() {
+		return frame;
 	}
 
 	public static ClassMaster getDatabase() {
