@@ -60,11 +60,13 @@ public class EmailMessage {
 
 	/**
 	 * Attempts to add the provided address string to the {@link #recipients} set. The address will fail to be added if
-	 * it is a duplicate.
+	 * it is a duplicate or if it is invalid (does not contain a '@' and a '.').
 	 * 
 	 * @param address The complete destination email address (eg. "abc@xyz.com")
 	 */
 	public void addRecipient(String address) {
+		if (!address.contains("@") && !address.contains("."))
+			return;
 		recipients.add(address);
 	}
 

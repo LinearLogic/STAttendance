@@ -1,5 +1,9 @@
 package com.veltro.stattendance.gui.pages;
 
+import com.veltro.stattendance.STAttendance;
+import com.veltro.stattendance.emailer.EmailMessage;
+import com.veltro.stattendance.emailer.EmailTemplate;
+
 /**
  * The MainPage JPanel is the hub of user activity. Its functions are separated into three tabs--one for accessing the
  * database, one for using the emailer, and one for generating export files.
@@ -14,8 +18,63 @@ public class MainPage extends javax.swing.JPanel{
      */
     public MainPage() {
         initComponents();
+		hideComposePanel();
+		generalTemplateMenu.addItem(new EmailTemplate("Blank message"));
     }
 
+	/**
+	 * Sets the contents of the 'Compose' panel in the 'Emailer' tab to be visible, and updates the text fields with
+	 * the values stored in the currently selected {@link EmailTemplate}. The {@link #generalComposeButton} is also
+	 * disabled.
+	 */
+	public void loadComposePanel() {
+		generalComposeButton.setEnabled(false);
+		composeActionPanel.setVisible(true);
+
+		composeRecipientsText.setText(null);
+		composeSubjectText.setText(((EmailTemplate) generalTemplateMenu.getSelectedItem()).getSubject());
+		composeMessageText.setText(((EmailTemplate) generalTemplateMenu.getSelectedItem()).getMessage());
+
+		composeRecipientsLabel.setVisible(true);
+		composeRecipientsText.setVisible(true);
+		composeRecipientsScroll.setVisible(true);
+
+		composeSubjectLabel.setVisible(true);
+		composeSubjectText.setVisible(true);
+		composeSubjectScroll.setVisible(true);
+
+		composeMessageText.setVisible(true);
+		composeMessageScroll.setVisible(true);
+	}
+
+	/**
+	 * Hides the contents of the 'Compose' panel in the 'Emailer' tab. The {@link #generalComposeButton} is also
+	 * disabled.
+	 */
+	public void hideComposePanel() {
+		generalComposeButton.setEnabled(true);
+		composeActionPanel.setVisible(false);
+
+		composeRecipientsLabel.setVisible(false);
+		composeRecipientsText.setVisible(false);
+		composeRecipientsScroll.setVisible(false);
+
+		composeSubjectLabel.setVisible(false);
+		composeSubjectText.setVisible(false);
+		composeSubjectScroll.setVisible(false);
+
+		composeMessageText.setVisible(false);
+		composeMessageScroll.setVisible(false);
+	}
+
+	/*
+	 * Clears the contents of the text fields in the 'Compose' panel of the 'Emailer' tab
+	 */
+	public void clearComposePanel() {
+		composeRecipientsText.setText(null);
+		composeSubjectText.setText(null);
+		composeMessageText.setText(null);
+	}
     /**
      * Initializes the components of the panel
      */
@@ -44,17 +103,18 @@ public class MainPage extends javax.swing.JPanel{
         jScrollPane4 = new javax.swing.JScrollPane();
         receiveInfo2 = new javax.swing.JTextArea();
         composePanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        composeRecipientsScroll = new javax.swing.JScrollPane();
         composeRecipientsText = new javax.swing.JTextArea();
         composeRecipientsLabel = new javax.swing.JLabel();
         composeSubjectLabel = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        composeSubjectScroll = new javax.swing.JScrollPane();
         composeSubjectText = new javax.swing.JTextArea();
-        jScrollPane5 = new javax.swing.JScrollPane();
+        composeMessageScroll = new javax.swing.JScrollPane();
         composeMessageText = new javax.swing.JTextArea();
         composeActionPanel = new javax.swing.JPanel();
         composeSendButton = new javax.swing.JButton();
         composeDiscardButton = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(120, 0), new java.awt.Dimension(120, 0), new java.awt.Dimension(120, 32767));
 
         sendPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Send Email", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 128))); // NOI18N
 
@@ -124,7 +184,6 @@ public class MainPage extends javax.swing.JPanel{
             }
         });
 
-        generalTemplateMenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blank message" }));
         generalTemplateMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 generalTemplateMenuActionPerformed(evt);
@@ -279,7 +338,7 @@ public class MainPage extends javax.swing.JPanel{
         composeRecipientsText.setRows(2);
         composeRecipientsText.setTabSize(4);
         composeRecipientsText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 153, 153), new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153), new java.awt.Color(102, 102, 102)));
-        jScrollPane1.setViewportView(composeRecipientsText);
+        composeRecipientsScroll.setViewportView(composeRecipientsText);
 
         composeRecipientsLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         composeRecipientsLabel.setText("Send to:");
@@ -292,14 +351,14 @@ public class MainPage extends javax.swing.JPanel{
         composeSubjectText.setRows(2);
         composeSubjectText.setTabSize(4);
         composeSubjectText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 153, 153), new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153), new java.awt.Color(102, 102, 102)));
-        jScrollPane2.setViewportView(composeSubjectText);
+        composeSubjectScroll.setViewportView(composeSubjectText);
 
         composeMessageText.setColumns(20);
         composeMessageText.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         composeMessageText.setRows(2);
         composeMessageText.setTabSize(4);
         composeMessageText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 153, 153), new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153), new java.awt.Color(102, 102, 102)));
-        jScrollPane5.setViewportView(composeMessageText);
+        composeMessageScroll.setViewportView(composeMessageText);
 
         composeActionPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -342,38 +401,40 @@ public class MainPage extends javax.swing.JPanel{
         composePanel.setLayout(composePanelLayout);
         composePanelLayout.setHorizontalGroup(
             composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, composePanelLayout.createSequentialGroup()
+            .addGroup(composePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5)
-                    .addGroup(composePanelLayout.createSequentialGroup()
+                .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(composeMessageScroll, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, composePanelLayout.createSequentialGroup()
                         .addComponent(composeActionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(composeSubjectLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(composeRecipientsLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))))
+                            .addComponent(composeSubjectScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                            .addComponent(composeRecipientsScroll))))
                 .addContainerGap())
+            .addComponent(filler1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         composePanelLayout.setVerticalGroup(
             composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(composePanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(composePanelLayout.createSequentialGroup()
                         .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(composeRecipientsLabel)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(composeRecipientsScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(composeSubjectScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(composeSubjectLabel)))
                     .addComponent(composeActionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5)
+                .addComponent(composeMessageScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -418,45 +479,53 @@ public class MainPage extends javax.swing.JPanel{
     }// </editor-fold>//GEN-END:initComponents
 
     private void receiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiveButtonActionPerformed
-
     }//GEN-LAST:event_receiveButtonActionPerformed
 
     private void generalTemplateMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generalTemplateMenuActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_generalTemplateMenuActionPerformed
 
     private void generalComposeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generalComposeButtonActionPerformed
-        // TODO add your handling code here:
+		loadComposePanel();
     }//GEN-LAST:event_generalComposeButtonActionPerformed
 
     private void greenEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenEditButtonActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_greenEditButtonActionPerformed
 
     private void greenSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenSendButtonActionPerformed
-
     }//GEN-LAST:event_greenSendButtonActionPerformed
 
     private void composeSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeSendButtonActionPerformed
-        // TODO add your handling code here:
+		EmailMessage mail = new EmailMessage(composeSubjectText.getText(), composeMessageText.getText());
+		for (String recipient : composeRecipientsText.getText().split(";")) {
+			recipient = recipient.trim();
+			if (recipient.length() < 6) // "a@a.co" is the shortest email address possible
+				continue;
+			mail.addRecipient(recipient);
+		}
+		STAttendance.getMailer().sendMessage(mail);
+		hideComposePanel();
     }//GEN-LAST:event_composeSendButtonActionPerformed
 
     private void composeDiscardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeDiscardButtonActionPerformed
-        // TODO add your handling code here:
+        hideComposePanel();
     }//GEN-LAST:event_composeDiscardButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel composeActionPanel;
     private javax.swing.JButton composeDiscardButton;
+    private javax.swing.JScrollPane composeMessageScroll;
     private javax.swing.JTextArea composeMessageText;
     private javax.swing.JPanel composePanel;
     private javax.swing.JLabel composeRecipientsLabel;
+    private javax.swing.JScrollPane composeRecipientsScroll;
     private javax.swing.JTextArea composeRecipientsText;
     private javax.swing.JButton composeSendButton;
     private javax.swing.JLabel composeSubjectLabel;
+    private javax.swing.JScrollPane composeSubjectScroll;
     private javax.swing.JTextArea composeSubjectText;
     private javax.swing.JPanel emailerPanel;
     private javax.swing.JTabbedPane emailerTab;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JButton generalComposeButton;
     private javax.swing.JButton generalEditTemplatesButton;
     private javax.swing.JPanel generalPanel;
@@ -469,11 +538,8 @@ public class MainPage extends javax.swing.JPanel{
     private javax.swing.JButton greenSendButton;
     private javax.swing.JSeparator greenSeparator;
     private javax.swing.JLabel greenTitle;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JButton receiveButton;
     private javax.swing.JTextArea receiveInfo1;
     private javax.swing.JTextArea receiveInfo2;

@@ -31,8 +31,9 @@ public class MailMaster {
 	 */
 	private final String PASSWORD;
 
+	private ArrayList<EmailTemplate> templates;
 	/**
-	 * Initializes the email {@link #ACCOUNT} and {@link #PASSWORD} fields
+	 * Initializes the email {@link #ACCOUNT}, {@link #PASSWORD}, and {@link #templates} fields
 	 * 
 	 * @param account A Gmail username
 	 * @param password The password used to authenticate the above account
@@ -40,6 +41,7 @@ public class MailMaster {
 	public MailMaster(String account, String password) {
 		ACCOUNT = account;
 		PASSWORD = password;
+		templates = new ArrayList<EmailTemplate>();
 	}
 
 	/**
@@ -51,6 +53,11 @@ public class MailMaster {
 	 * @return A String Array containing the account names (eg. "abc@xyz.com") that the message could not be sent to
 	 */
 	public String[] sendMessage(EmailMessage message) {
+
+		// Preliminary tests
+		if (message.getRecipients().length == 0 || ACCOUNT == null || ACCOUNT.length() < 6 || PASSWORD == null ||
+				PASSWORD.length() < 8)
+			return null;
 
 		// Set up the email transmission session properties
 		String host = "smtp.gmail.com";
@@ -127,6 +134,10 @@ public class MailMaster {
 	    for (String addr : failedAddresses)
 	    	output[index++] = addr;
 	    return output;
+	}
+
+	public ArrayList<EmailTemplate> getTemplates() {
+		return templates;
 	}
 
 	/**
