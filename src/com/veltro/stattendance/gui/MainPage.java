@@ -559,6 +559,7 @@ public class MainPage extends javax.swing.JPanel{
 				continue;
 			mail.addRecipient(recipient);
 		}
+		emailerProgressBox.addMessage(mail);
 		emailerProgressBox.loadInSendMode();
     }//GEN-LAST:event_composeSendButtonActionPerformed
 

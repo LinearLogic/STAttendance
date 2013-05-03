@@ -2,8 +2,12 @@ package com.veltro.stattendance.gui;
 
 import com.veltro.stattendance.STAttendance;
 import com.veltro.stattendance.emailer.EmailMessage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import javax.swing.SwingUtilities;
+import java.util.Arrays;
+import javax.swing.JDialog;
+import javax.swing.SwingWorker;
 
 /**
  * A dialog box that is used to show the progress through an email function, namely sending messages or parsing the
@@ -12,7 +16,7 @@ import javax.swing.SwingUtilities;
  * @author LinearLogic
  * @since 0.3.5
  */
-public class EmailerProgressDialog extends javax.swing.JDialog {
+public class EmailerProgressDialog extends JDialog implements PropertyChangeListener {
 
 	/**
 	 * A queue (FIFO list) of {@link EmailMessage messages} to be sent while the progress box is open
@@ -45,11 +49,7 @@ public class EmailerProgressDialog extends javax.swing.JDialog {
 		if (amount <= 0)
 			return;
 		int val = progressBar.getValue() + amount;
-		if (val >= 100) {
-			close();
-			return;
-		}
-		progressBar.setValue(val);
+		progressBar.setValue((val > 100) ? 100 : val);
 	}
 
 	/**
@@ -61,26 +61,11 @@ public class EmailerProgressDialog extends javax.swing.JDialog {
 		progressBar.setValue(0);
 		sendLabel.setVisible(true);
 		recipientLabel.setText("");
+		SenderTask task = new SenderTask();
+		task.addPropertyChangeListener(this);
+		task.execute();
 		setEnabled(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				int incrementAmount = 100 / ((mailToSend.size() > 0) ? mailToSend.size() : 1);
-				if (incrementAmount < 100) {
-					for (EmailMessage toSend : mailToSend) {
-						recipientLabel.setText(toSend.getRecipients().toString().substring(0, 30));
-						STAttendance.getMailer().sendMessage(toSend);
-						incrementProgressBar(incrementAmount);
-					}
-				}
-			}
-		});
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				setVisible(true);
-			}
-		});
-		close();
-		System.out.println("!");
+		setVisible(true);
 	}
 
 	/**
@@ -101,6 +86,26 @@ public class EmailerProgressDialog extends javax.swing.JDialog {
 	public void close() {
 		setEnabled(false);
 		setVisible(false);
+	}
+
+	/**
+	 * Called when the progress bar's 
+	 * @param event 
+	 */
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		if (event.getPropertyName().equals("progress")) {
+			int progress = (Integer) event.getNewValue();
+			progressBar.setValue(progress);
+		}
+	}
+
+	/**
+	 * Appends the provided {@link EmailMessage} object to the {@link #mailToSend email to be sent}
+	 * @param message 
+	 */
+	public void addMessage(EmailMessage message) {
+		mailToSend.add(message);
 	}
 
 	/**
@@ -172,4 +177,36 @@ public class EmailerProgressDialog extends javax.swing.JDialog {
         // TODO: cancel the current operation in MailMaster
 		close();
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+	/**
+	 * A task that runs in the background to dispatch all the {@link #mailToSend email to be sent}
+	 */
+	class SenderTask extends SwingWorker<Void, Void> {
+
+		@Override
+		public Void doInBackground() {
+			float incrementAmount = (float) (100.0 / ((mailToSend.size() > 0) ? mailToSend.size() : 1));
+			if (incrementAmount <= 100) {
+				float progress = 0;
+				setProgress(0);
+				for (EmailMessage toSend : mailToSend) {
+					if (!isEnabled()) // cancel the email transmission
+						return null;
+					String recipients = Arrays.toString(toSend.getRecipients());
+					recipients = recipients.substring(1, recipients.length() - 1);
+					recipientLabel.setText(recipients);
+					STAttendance.getMailer().sendMessage(toSend);
+					progress += incrementAmount;
+					setProgress(Math.min((int) progress, 100));
+				}
+				mailToSend.clear();
+			}
+			return null;
+		}
+	
+		@Override
+		public void done() {
+			close();
+		}
+	}
 }
