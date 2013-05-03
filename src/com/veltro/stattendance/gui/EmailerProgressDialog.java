@@ -1,4 +1,9 @@
-package com.veltro.stattendance.gui.pages;
+package com.veltro.stattendance.gui;
+
+import com.veltro.stattendance.STAttendance;
+import com.veltro.stattendance.emailer.EmailMessage;
+import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 
 /**
  * A dialog box that is used to show the progress through an email function, namely sending messages or parsing the
@@ -8,6 +13,11 @@ package com.veltro.stattendance.gui.pages;
  * @since 0.3.5
  */
 public class EmailerProgressDialog extends javax.swing.JDialog {
+
+	/**
+	 * A queue (FIFO list) of {@link EmailMessage messages} to be sent while the progress box is open
+	 */
+	private ArrayList<EmailMessage> mailToSend;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
@@ -22,6 +32,7 @@ public class EmailerProgressDialog extends javax.swing.JDialog {
 	public EmailerProgressDialog(java.awt.Frame parent, boolean modal) {
 		super(parent, modal);
 		initComponents();
+		mailToSend = new ArrayList<EmailMessage>();
 	}
 
 	/**
@@ -42,7 +53,8 @@ public class EmailerProgressDialog extends javax.swing.JDialog {
 	}
 
 	/**
-	 * Sets up the dialog box to show progress through an email sending task, and then displays the window
+	 * Sets up the dialog box to show progress through an email sending task and then sends every email in the
+	 * {@link #mailToSend} queue.
 	 */
 	public void loadInSendMode() {
 		setTitle("Sending email...");
@@ -50,7 +62,25 @@ public class EmailerProgressDialog extends javax.swing.JDialog {
 		sendLabel.setVisible(true);
 		recipientLabel.setText("");
 		setEnabled(true);
-		setVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				int incrementAmount = 100 / ((mailToSend.size() > 0) ? mailToSend.size() : 1);
+				if (incrementAmount < 100) {
+					for (EmailMessage toSend : mailToSend) {
+						recipientLabel.setText(toSend.getRecipients().toString().substring(0, 30));
+						STAttendance.getMailer().sendMessage(toSend);
+						incrementProgressBar(incrementAmount);
+					}
+				}
+			}
+		});
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				setVisible(true);
+			}
+		});
+		close();
+		System.out.println("!");
 	}
 
 	/**

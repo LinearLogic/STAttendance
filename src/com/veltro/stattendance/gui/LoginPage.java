@@ -1,4 +1,4 @@
-package com.veltro.stattendance.gui.pages;
+package com.veltro.stattendance.gui;
 
 import com.veltro.stattendance.STAttendance;
 import com.veltro.stattendance.emailer.MailMaster;

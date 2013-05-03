@@ -7,8 +7,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import com.veltro.stattendance.database.ClassMaster;
 import com.veltro.stattendance.emailer.MailMaster;
-import com.veltro.stattendance.gui.pages.LoginPage;
-import com.veltro.stattendance.gui.pages.MainPage;
+import com.veltro.stattendance.gui.LoginPage;
+import com.veltro.stattendance.gui.MainPage;
 
 /**
  * Main class - contains the {@link #frame GUI window object} and {@link #main(String[]) program entry point}

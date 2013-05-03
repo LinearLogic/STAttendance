@@ -61,7 +61,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="composePanel" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="sendPanel" max="32767" attributes="0"/>
+                              <Component id="sendPanel" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="receivePanel" min="-2" pref="182" max="-2" attributes="0"/>
                           </Group>
@@ -105,7 +105,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="greenPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="generalPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
@@ -492,15 +492,15 @@
                               <Component id="composeMessageScroll" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="composeActionPanel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="composeSubjectLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="composeRecipientsLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="composeSubjectScroll" pref="297" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="composeRecipientsScroll" max="32767" attributes="0"/>
+                                      <Component id="composeSubjectScroll" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -514,22 +514,22 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="filler1" min="-2" pref="0" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="composeRecipientsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="composeActionPanel" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="composeRecipientsScroll" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="composeRecipientsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="composeRecipientsScroll" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="composeSubjectScroll" min="-2" max="-2" attributes="0"/>
                                       <Component id="composeSubjectLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="composeSubjectScroll" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="composeActionPanel" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="composeMessageScroll" pref="430" max="32767" attributes="0"/>
+                          <Component id="composeMessageScroll" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>

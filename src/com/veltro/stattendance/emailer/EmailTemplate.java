@@ -1,6 +1,6 @@
 package com.veltro.stattendance.emailer;
 
-import com.veltro.stattendance.gui.pages.MainPage;
+import com.veltro.stattendance.gui.MainPage;
 
 /**
  * EmailTemplates contain prewritten message text to be loaded into the 'Compose' panel in the 'Emailer' tab of the

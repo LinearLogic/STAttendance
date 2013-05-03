@@ -1,4 +1,4 @@
-package com.veltro.stattendance.gui.pages;
+package com.veltro.stattendance.gui;
 
 import com.veltro.stattendance.STAttendance;
 import com.veltro.stattendance.emailer.EmailMessage;
@@ -16,7 +16,7 @@ public class MainPage extends javax.swing.JPanel{
 
 	private EmailerProgressDialog emailerProgressBox;
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel composeActionPanel;
     private javax.swing.JButton composeDiscardButton;
     private javax.swing.JScrollPane composeMessageScroll;
@@ -308,7 +308,7 @@ public class MainPage extends javax.swing.JPanel{
             .addGroup(sendPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(greenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
                 .addComponent(generalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
         );
@@ -459,14 +459,14 @@ public class MainPage extends javax.swing.JPanel{
                     .addComponent(composeMessageScroll, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, composePanelLayout.createSequentialGroup()
                         .addComponent(composeActionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(11, 11, 11)
                         .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(composeSubjectLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(composeRecipientsLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(composeSubjectScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-                            .addComponent(composeRecipientsScroll))))
+                        .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(composeRecipientsScroll)
+                            .addComponent(composeSubjectScroll))))
                 .addContainerGap())
             .addComponent(filler1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
@@ -475,18 +475,18 @@ public class MainPage extends javax.swing.JPanel{
             .addGroup(composePanelLayout.createSequentialGroup()
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
-                .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(composeRecipientsLabel)
+                        .addComponent(composeActionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(composePanelLayout.createSequentialGroup()
-                        .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(composeRecipientsLabel)
-                            .addComponent(composeRecipientsScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(composeRecipientsScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(composeSubjectScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(composeSubjectLabel)))
-                    .addComponent(composeActionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(composeSubjectLabel)
+                            .addComponent(composeSubjectScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(composeMessageScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(composeMessageScroll)
                 .addContainerGap())
         );
 
@@ -510,7 +510,7 @@ public class MainPage extends javax.swing.JPanel{
                 .addGroup(emailerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(composePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(emailerPanelLayout.createSequentialGroup()
-                        .addComponent(sendPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sendPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(receivePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -549,6 +549,9 @@ public class MainPage extends javax.swing.JPanel{
     }//GEN-LAST:event_greenSendButtonActionPerformed
 
     private void composeSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeSendButtonActionPerformed
+		if (composeRecipientsText.getText() == null || composeRecipientsText.getText().length() < 6) // no recipients
+			return;
+		hideComposePanel();
 		EmailMessage mail = new EmailMessage(composeSubjectText.getText(), composeMessageText.getText());
 		for (String recipient : composeRecipientsText.getText().split(";")) {
 			recipient = recipient.trim();
@@ -556,8 +559,7 @@ public class MainPage extends javax.swing.JPanel{
 				continue;
 			mail.addRecipient(recipient);
 		}
-		STAttendance.getMailer().sendMessage(mail);
-		hideComposePanel();
+		emailerProgressBox.loadInSendMode();
     }//GEN-LAST:event_composeSendButtonActionPerformed
 
     private void composeDiscardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeDiscardButtonActionPerformed
