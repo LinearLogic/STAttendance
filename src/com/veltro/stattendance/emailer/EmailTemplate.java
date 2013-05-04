@@ -59,7 +59,7 @@ public class EmailTemplate {
 	}
 
 	public String getSubject() {
-		return subject;
+		return (subject == null) ? "" : subject;
 	}
 
 	public void setSubject(String subject) {
@@ -67,7 +67,7 @@ public class EmailTemplate {
 	}
 
 	public String getMessage() {
-		return message;
+		return (message == null) ? "" : message;
 	}
 
 	public void setMessage(String message) {

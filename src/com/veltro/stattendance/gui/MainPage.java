@@ -14,6 +14,8 @@ import javax.swing.JFrame;
  */
 public class MainPage extends javax.swing.JPanel{
 
+	private boolean editingAttendanceTemplate = false;
+
 	private EmailerProgressDialog emailerProgressBox;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -33,13 +35,13 @@ public class MainPage extends javax.swing.JPanel{
     private javax.swing.JTabbedPane emailerTab;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton generalComposeButton;
-    private javax.swing.JButton generalEditTemplatesButton;
+    private javax.swing.JButton generalEditTemplateButton;
     private javax.swing.JPanel generalPanel;
     private javax.swing.JSeparator generalSeparator;
     private javax.swing.JLabel generalTemplateLabel;
     private javax.swing.JComboBox generalTemplateMenu;
     private javax.swing.JLabel generalTitle;
-    private javax.swing.JButton greenEditButton;
+    private javax.swing.JButton greenEditTemplateButton;
     private javax.swing.JPanel greenPanel;
     private javax.swing.JButton greenSendButton;
     private javax.swing.JSeparator greenSeparator;
@@ -60,6 +62,9 @@ public class MainPage extends javax.swing.JPanel{
         initComponents();
 		hideComposePanel();
 		generalTemplateMenu.addItem(new EmailTemplate("Blank message"));
+		generalTemplateMenu.addItem(new EmailTemplate("Custom message 1"));
+		generalTemplateMenu.addItem(new EmailTemplate("Custom message 2"));
+		generalTemplateMenu.addItem(new EmailTemplate("Custom message 3"));
 		emailerProgressBox = new EmailerProgressDialog(STAttendance.getFrame(), true);
     }
 
@@ -73,8 +78,9 @@ public class MainPage extends javax.swing.JPanel{
 		composeActionPanel.setVisible(true);
 
 		composeRecipientsText.setText(null);
-		composeSubjectText.setText(((EmailTemplate) generalTemplateMenu.getSelectedItem()).getSubject());
-		composeMessageText.setText(((EmailTemplate) generalTemplateMenu.getSelectedItem()).getMessage());
+		EmailTemplate toLoad = (EmailTemplate) generalTemplateMenu.getSelectedItem();
+		composeSubjectText.setText(toLoad.getSubject().toString());
+		composeMessageText.setText(toLoad.getMessage().toString());
 
 		composeRecipientsLabel.setVisible(true);
 		composeRecipientsText.setVisible(true);
@@ -93,7 +99,7 @@ public class MainPage extends javax.swing.JPanel{
 	 * disabled.
 	 */
 	public void hideComposePanel() {
-		generalComposeButton.setEnabled(true);
+		clearComposePanel();
 		composeActionPanel.setVisible(false);
 
 		composeRecipientsLabel.setVisible(false);
@@ -115,6 +121,30 @@ public class MainPage extends javax.swing.JPanel{
 		composeRecipientsText.setText(null);
 		composeSubjectText.setText(null);
 		composeMessageText.setText(null);
+	}
+
+	/**
+	 * Enables the interactive components in the 'Send Email' and 'Parse Incoming Email' panels
+	 */
+	public void enableButtons() {
+		greenSendButton.setEnabled(true);
+		greenEditTemplateButton.setEnabled(true);
+		generalComposeButton.setEnabled(true);
+		generalTemplateMenu.setEnabled(true);
+		generalEditTemplateButton.setEnabled(true);
+		receiveButton.setEnabled(true);
+	}
+
+	/**
+	 * Disables the interactive components in the 'Send Email' and 'Parse Incoming Email' panels
+	 */
+	public void disableButtons() {
+		greenSendButton.setEnabled(false);
+		greenEditTemplateButton.setEnabled(false);
+		generalComposeButton.setEnabled(false);
+		generalTemplateMenu.setEnabled(false);
+		generalEditTemplateButton.setEnabled(false);
+		receiveButton.setEnabled(false);
 	}
 
 	/**
@@ -140,14 +170,14 @@ public class MainPage extends javax.swing.JPanel{
         greenSendButton = new javax.swing.JButton();
         greenTitle = new javax.swing.JLabel();
         greenSeparator = new javax.swing.JSeparator();
-        greenEditButton = new javax.swing.JButton();
+        greenEditTemplateButton = new javax.swing.JButton();
         generalPanel = new javax.swing.JPanel();
         generalTitle = new javax.swing.JLabel();
         generalSeparator = new javax.swing.JSeparator();
         generalComposeButton = new javax.swing.JButton();
         generalTemplateMenu = new javax.swing.JComboBox();
         generalTemplateLabel = new javax.swing.JLabel();
-        generalEditTemplatesButton = new javax.swing.JButton();
+        generalEditTemplateButton = new javax.swing.JButton();
         receivePanel = new javax.swing.JPanel();
         receiveButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -183,10 +213,10 @@ public class MainPage extends javax.swing.JPanel{
         greenTitle.setForeground(new java.awt.Color(0, 100, 0));
         greenTitle.setText("Green Attendance");
 
-        greenEditButton.setText("Edit attendance email template...");
-        greenEditButton.addActionListener(new java.awt.event.ActionListener() {
+        greenEditTemplateButton.setText("Edit attendance email template...");
+        greenEditTemplateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                greenEditButtonActionPerformed(evt);
+                greenEditTemplateButtonActionPerformed(evt);
             }
         });
 
@@ -206,7 +236,7 @@ public class MainPage extends javax.swing.JPanel{
                 .addGap(12, 12, 12))
             .addGroup(greenPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(greenEditButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(greenEditTemplateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         greenPanelLayout.setVerticalGroup(
@@ -219,7 +249,7 @@ public class MainPage extends javax.swing.JPanel{
                 .addGap(3, 3, 3)
                 .addComponent(greenSendButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(greenEditButton)
+                .addComponent(greenEditTemplateButton)
                 .addGap(15, 15, 15))
         );
 
@@ -244,7 +274,12 @@ public class MainPage extends javax.swing.JPanel{
 
         generalTemplateLabel.setText("Choose a template:");
 
-        generalEditTemplatesButton.setText("Edit templates...");
+        generalEditTemplateButton.setText("Edit current template...");
+        generalEditTemplateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generalEditTemplateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout generalPanelLayout = new javax.swing.GroupLayout(generalPanel);
         generalPanel.setLayout(generalPanelLayout);
@@ -269,10 +304,10 @@ public class MainPage extends javax.swing.JPanel{
                                 .addComponent(generalTemplateMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(generalPanelLayout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(generalEditTemplatesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generalPanelLayout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(generalEditTemplateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         generalPanelLayout.setVerticalGroup(
             generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,9 +322,9 @@ public class MainPage extends javax.swing.JPanel{
                 .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(generalTemplateMenu)
                     .addComponent(generalTemplateLabel))
-                .addGap(30, 30, 30)
-                .addComponent(generalEditTemplatesButton)
-                .addGap(15, 15, 15))
+                .addGap(26, 26, 26)
+                .addComponent(generalEditTemplateButton)
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout sendPanelLayout = new javax.swing.GroupLayout(sendPanel);
@@ -308,7 +343,7 @@ public class MainPage extends javax.swing.JPanel{
             .addGroup(sendPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(greenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(29, 29, 29)
                 .addComponent(generalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10))
         );
@@ -511,7 +546,7 @@ public class MainPage extends javax.swing.JPanel{
                     .addComponent(composePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(emailerPanelLayout.createSequentialGroup()
                         .addComponent(sendPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(14, 14, 14)
                         .addComponent(receivePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -538,17 +573,37 @@ public class MainPage extends javax.swing.JPanel{
     }//GEN-LAST:event_generalTemplateMenuActionPerformed
 
     private void generalComposeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generalComposeButtonActionPerformed
+		disableButtons();
 		loadComposePanel();
     }//GEN-LAST:event_generalComposeButtonActionPerformed
 
-    private void greenEditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenEditButtonActionPerformed
-    }//GEN-LAST:event_greenEditButtonActionPerformed
+    private void greenEditTemplateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenEditTemplateButtonActionPerformed
+		disableButtons();
+		composeSendButton.setText("Save");
+		editingAttendanceTemplate = true;
+		loadComposePanel();
+    }//GEN-LAST:event_greenEditTemplateButtonActionPerformed
 
     private void greenSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenSendButtonActionPerformed
 		emailerProgressBox.loadInSendMode();
     }//GEN-LAST:event_greenSendButtonActionPerformed
 
     private void composeSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeSendButtonActionPerformed
+		if (composeSendButton.getText().equals("Save")) {
+
+			if (editingAttendanceTemplate) {
+				// TODO update the attendance EmailTemplate stored in the MailMaster
+			} else {
+				EmailTemplate template = (EmailTemplate) generalTemplateMenu.getSelectedItem();
+				template.setSubject((composeSubjectText.getText() == null) ? "" : composeSubjectText.getText().toString());
+				template.setMessage((composeMessageText.getText() == null) ? "" : composeMessageText.getText().toString());
+			}
+
+			hideComposePanel();
+			composeSendButton.setText("Send");
+			enableButtons();
+			return;
+		}
 		if (composeRecipientsText.getText() == null || composeRecipientsText.getText().length() < 6) // no recipients
 			return;
 		hideComposePanel();
@@ -560,10 +615,20 @@ public class MainPage extends javax.swing.JPanel{
 			mail.addRecipient(recipient);
 		}
 		emailerProgressBox.addMessage(mail);
+		enableButtons();
 		emailerProgressBox.loadInSendMode();
     }//GEN-LAST:event_composeSendButtonActionPerformed
 
     private void composeDiscardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeDiscardButtonActionPerformed
-        hideComposePanel();
+		if (composeSendButton.getText().equals("Save"))
+			composeSendButton.setText("Send");
+		hideComposePanel();
+		enableButtons();
     }//GEN-LAST:event_composeDiscardButtonActionPerformed
+
+    private void generalEditTemplateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generalEditTemplateButtonActionPerformed
+		composeSendButton.setText("Save");
+		disableButtons();
+		loadComposePanel();
+    }//GEN-LAST:event_generalEditTemplateButtonActionPerformed
 }
