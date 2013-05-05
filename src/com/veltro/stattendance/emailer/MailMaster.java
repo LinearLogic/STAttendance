@@ -1,5 +1,12 @@
 package com.veltro.stattendance.emailer;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -31,7 +38,16 @@ public class MailMaster {
 	 */
 	private final String PASSWORD;
 
+	/**
+	 * The special {@link EmailTemplate} used for attendance messages
+	 */
+	private EmailTemplate attendanceTemplate;
+
+	/**
+	 * A list of the currently loaded {@link EmailTemplate} objects
+	 */
 	private ArrayList<EmailTemplate> templates;
+
 	/**
 	 * Initializes the email {@link #ACCOUNT}, {@link #PASSWORD}, and {@link #templates} fields
 	 * 
@@ -41,6 +57,7 @@ public class MailMaster {
 	public MailMaster(String account, String password) {
 		ACCOUNT = account;
 		PASSWORD = password;
+		attendanceTemplate = new EmailTemplate("Attendance template");
 		templates = new ArrayList<EmailTemplate>();
 	}
 
@@ -134,6 +151,94 @@ public class MailMaster {
 	    for (String addr : failedAddresses)
 	    	output[index++] = addr;
 	    return output;
+	}
+
+	/**
+	 * Loads {@link EmailTemplate} objects from the .txt files stored in the 'Email Template' directory
+	 * 
+	 * @param templateDir The root email template folder, represented as a File object
+	 */
+	public void loadTemplates() {
+		attendanceTemplate = new EmailTemplate("Attendance template");
+		attendanceTemplate.setSubject("Attendance for $DATE");
+		attendanceTemplate.setMessage("Mark only students that were absent (mark with an \"A\"), took a cut (\"C\")," +
+				" or were late to class (\"L20\" if tardy fifteen minutes, \"L05\" if tardy five, etc.)" +
+				"\n\n$ATTENDANCE_LISTS"); // Default attendance email template
+		String path = ClassLoader.getSystemClassLoader().getResource(".").getPath();
+		try {
+			path = URLDecoder.decode(path, "UTF-8");
+			if (path.length() < 1)
+				return;
+		} catch (UnsupportedEncodingException ex) {
+			return;
+		}
+		File templateDir = new File(path, "Email Templates");
+		if (!templateDir.exists() || !templateDir.isDirectory()) {
+			templateDir.mkdirs();
+			return;
+		}
+
+		for (File f : templateDir.listFiles()) {
+			if (f.isDirectory())
+				continue;
+			String name = f.getName();
+			if (!name.endsWith(".txt")) // TXT files are used to store email templates
+				continue;
+			BufferedReader br;
+			try {
+				br = new BufferedReader(new FileReader(f));
+			} catch (FileNotFoundException e) { // This should never happen...
+				continue;
+			}
+			EmailTemplate temp = new EmailTemplate(name.substring(0, name.length() - 4)); // Drop extension for name
+			try {
+				String subject = br.readLine();
+				temp.setSubject(subject);
+				StringBuilder message = new StringBuilder();
+				String messageLine = br.readLine();
+				while (messageLine != null) {
+					message.append(messageLine);
+					message.append("\n");
+					messageLine = br.readLine();
+				}
+				temp.setMessage(message.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+				// TODO: log error in program execution log
+			} finally {
+				if (name.startsWith("Attendance template"))
+					attendanceTemplate = temp;
+				else
+					templates.add(temp);
+			}
+		}
+	}
+
+	/**
+	 * Writes each of the currently loaded {@link EmailTemplate} objects to files in the 'Email Templates' directory by
+	 * calling the {@link EmailTemplate#saveToFile(File)} for each.
+	 */
+	public void saveTemplates() {
+		String path = ClassLoader.getSystemClassLoader().getResource(".").getPath();
+		try {
+			path = URLDecoder.decode(path, "UTF-8");
+			if (path.length() < 1)
+				return;
+		} catch (UnsupportedEncodingException ex) {
+			return;
+		}
+		File templateDir = new File(path, "Email Templates");
+		if (!templateDir.exists() || !templateDir.isDirectory()) {
+			templateDir.mkdirs();
+			return;
+		}
+		attendanceTemplate.saveToFile(new File(templateDir, attendanceTemplate.toString() + ".txt"));
+		for (EmailTemplate temp : templates)
+			temp.saveToFile(new File(templateDir, temp.toString() + ".txt"));
+	}
+
+	public EmailTemplate getAttendanceTemplate() {
+		return attendanceTemplate;
 	}
 
 	public ArrayList<EmailTemplate> getTemplates() {

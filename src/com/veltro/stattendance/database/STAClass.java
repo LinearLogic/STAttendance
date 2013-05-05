@@ -32,14 +32,14 @@ public class STAClass {
 	private int teacherID;
 
 	/**
-	 * A directory of attendance record entries (stored as integers formatted as shown below) indexed by student. Only
+	 * A directory of attendance record entries (stored as strings formatted as shown below) indexed by student. Only
 	 * instances of absence or tardiness are recorded; no entry should be made if a student is in class on time.
 	 * <p>
 	 * <b>Entry values:</b>
 	 * Absences: excused = 0, unexcused = -1, senior cut = -2<br>
 	 * Tardiness: the entry value is the number of minutes the student was late to class
 	 */
-	private HashMap<Integer, ArrayList<Integer>> studentRecords;
+	private HashMap<Integer, ArrayList<String>> studentRecords;
 
 	/**
 	 * Constructor - initializes the class's {@link #name}, {@link #periods}, and {@link #teacherID} and instantiates
@@ -53,7 +53,7 @@ public class STAClass {
 		this.name = name;
 		this.periods = periods;
 		this.teacherID = teacherID;
-		studentRecords = new HashMap<Integer, ArrayList<Integer>>();
+		studentRecords = new HashMap<Integer, ArrayList<String>>();
 	}
 
 	public String getName() {
@@ -97,11 +97,11 @@ public class STAClass {
 	}
 
 	public void addStudent(Student student) {
-		studentRecords.put(student.getID(), new ArrayList<Integer>());
+		studentRecords.put(student.getID(), new ArrayList<String>());
 	}
 
 	public void addStudent(int studentID) {
-		studentRecords.put(studentID, new ArrayList<Integer>());
+		studentRecords.put(studentID, new ArrayList<String>());
 	}
 
 	public void removeStudent(Student student) {
@@ -116,15 +116,15 @@ public class STAClass {
 		studentRecords.clear();
 	}
 
-	public int[] getAttendanceRecords(Student s) {
+	public String[] getAttendanceRecords(Student s) {
 		return getAttendanceRecords(s.getID());
 	}
 
-	public int[] getAttendanceRecords(int studentID) {
-		ArrayList<Integer> studentHistory = studentRecords.get(studentID);
-		int[] output = new int[studentHistory.size()];
+	public String[] getAttendanceRecords(int studentID) {
+		ArrayList<String> studentHistory = studentRecords.get(studentID);
+		String[] output = new String[studentHistory.size()];
 		int index = 0;
-		for (int entry : studentHistory)
+		for (String entry : studentHistory)
 			output[index++] = entry;
 		return output;
 	}

@@ -1,5 +1,8 @@
 package com.veltro.stattendance;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -14,7 +17,7 @@ import com.veltro.stattendance.gui.MainPage;
  * Main class - contains the {@link #frame GUI window object} and {@link #main(String[]) program entry point}
  * 
  * @author LinearLogic
- * @version 0.3.10
+ * @version 0.3.11
  */
 public class STAttendance {
 
@@ -37,8 +40,15 @@ public class STAttendance {
 	 * Sets up the {@link #frame GUI window} and sets the active JPanel to the {@link LoginPage}
 	 */
 	private static void createAndShowGui() {
-		frame = new JFrame("STAttendance");
+		frame = new JFrame("STA Attendance");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent event) {
+				mailer.saveTemplates();
+				System.exit(0);
+			}
+		});
 		LoginPage login = new LoginPage();
 		frame.getContentPane().add(login);
 		frame.pack();
@@ -51,6 +61,7 @@ public class STAttendance {
 	 * Sets the active JPanel to the {@link MainPage}
 	 */
 	public static void loadMainPage() {
+		mailer.loadTemplates();
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(new MainPage());
 		frame.pack();

@@ -1,5 +1,11 @@
 package com.veltro.stattendance.emailer;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 import com.veltro.stattendance.gui.MainPage;
 
 /**
@@ -44,6 +50,30 @@ public class EmailTemplate {
 		this.name = (name == null) ? "" : name;
 		this.subject = subject;
 		this.message = message;
+	}
+
+	/**
+	 * Writes the template's data to the provided File
+	 * 
+	 * @param templateFile
+	 */
+	public void saveToFile(File templateFile) {
+		if (!templateFile.exists()) {
+			try {
+				templateFile.createNewFile();
+			} catch (IOException e) {
+				return;
+			}
+		}
+		try {
+			BufferedWriter w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(templateFile), "utf-8"));
+			w.write(subject);
+			w.newLine();
+			w.write(message);
+			w.close();
+		} catch (IOException e) {
+			return;
+		}
 	}
 
 	/**

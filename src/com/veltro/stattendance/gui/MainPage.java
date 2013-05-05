@@ -62,9 +62,8 @@ public class MainPage extends javax.swing.JPanel{
         initComponents();
 		hideComposePanel();
 		generalTemplateMenu.addItem(new EmailTemplate("Blank message"));
-		generalTemplateMenu.addItem(new EmailTemplate("Custom message 1"));
-		generalTemplateMenu.addItem(new EmailTemplate("Custom message 2"));
-		generalTemplateMenu.addItem(new EmailTemplate("Custom message 3"));
+		for (EmailTemplate template : STAttendance.getMailer().getTemplates())
+			generalTemplateMenu.addItem(template);
 		emailerProgressBox = new EmailerProgressDialog(STAttendance.getFrame(), true);
     }
 
@@ -78,7 +77,11 @@ public class MainPage extends javax.swing.JPanel{
 		composeActionPanel.setVisible(true);
 
 		composeRecipientsText.setText(null);
-		EmailTemplate toLoad = (EmailTemplate) generalTemplateMenu.getSelectedItem();
+		EmailTemplate toLoad;
+		if (editingAttendanceTemplate)
+			toLoad = STAttendance.getMailer().getAttendanceTemplate();
+		else
+			toLoad = (EmailTemplate) generalTemplateMenu.getSelectedItem();
 		composeSubjectText.setText(toLoad.getSubject().toString());
 		composeMessageText.setText(toLoad.getMessage().toString());
 
@@ -566,6 +569,8 @@ public class MainPage extends javax.swing.JPanel{
     }// </editor-fold>//GEN-END:initComponents
 
     private void receiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiveButtonActionPerformed
+		for (EmailTemplate t : STAttendance.getMailer().getTemplates())
+			System.out.println(t.getSubject());
 		emailerProgressBox.loadInParseMode();
     }//GEN-LAST:event_receiveButtonActionPerformed
 
@@ -591,12 +596,17 @@ public class MainPage extends javax.swing.JPanel{
     private void composeSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeSendButtonActionPerformed
 		if (composeSendButton.getText().equals("Save")) {
 
+			String subject = composeSubjectText.getText(), message = composeMessageText.getText();
 			if (editingAttendanceTemplate) {
-				// TODO update the attendance EmailTemplate stored in the MailMaster
+				STAttendance.getMailer().getAttendanceTemplate().setSubject((subject == null) ? "" : subject);
+				STAttendance.getMailer().getAttendanceTemplate().setMessage((message == null) ? "" : message);
+				editingAttendanceTemplate = false;
 			} else {
 				EmailTemplate template = (EmailTemplate) generalTemplateMenu.getSelectedItem();
-				template.setSubject((composeSubjectText.getText() == null) ? "" : composeSubjectText.getText().toString());
-				template.setMessage((composeMessageText.getText() == null) ? "" : composeMessageText.getText().toString());
+				if (!template.toString().equals("Blank message")) { // Prevent editing of the blank template
+					template.setSubject((subject == null) ? "" : subject);
+					template.setMessage((message == null) ? "" : message);
+				}
 			}
 
 			hideComposePanel();
@@ -604,9 +614,9 @@ public class MainPage extends javax.swing.JPanel{
 			enableButtons();
 			return;
 		}
+
 		if (composeRecipientsText.getText() == null || composeRecipientsText.getText().length() < 6) // no recipients
 			return;
-		hideComposePanel();
 		EmailMessage mail = new EmailMessage(composeSubjectText.getText(), composeMessageText.getText());
 		for (String recipient : composeRecipientsText.getText().split(";")) {
 			recipient = recipient.trim();
@@ -614,14 +624,17 @@ public class MainPage extends javax.swing.JPanel{
 				continue;
 			mail.addRecipient(recipient);
 		}
-		emailerProgressBox.addMessage(mail);
+		hideComposePanel();
 		enableButtons();
+		emailerProgressBox.addMessage(mail);
 		emailerProgressBox.loadInSendMode();
     }//GEN-LAST:event_composeSendButtonActionPerformed
 
     private void composeDiscardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_composeDiscardButtonActionPerformed
-		if (composeSendButton.getText().equals("Save"))
+		if (composeSendButton.getText().equals("Save")) {
+			editingAttendanceTemplate = false;
 			composeSendButton.setText("Send");
+		}
 		hideComposePanel();
 		enableButtons();
     }//GEN-LAST:event_composeDiscardButtonActionPerformed
