@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class ClassMaster {
 
 	/**
-	 * A directory of {@link STAStudent STA classes} indexed by {@link STAStudent#name}
+	 * A directory of {@link STAClass STA classes} indexed by {@link STAClass#name}
 	 */
 	private HashMap<String, STAClass> classes;
 
