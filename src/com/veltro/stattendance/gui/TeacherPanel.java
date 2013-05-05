@@ -39,6 +39,13 @@ public class TeacherPanel extends javax.swing.JPanel {
         phoneLabel = new javax.swing.JLabel();
         phoneText = new javax.swing.JTextField();
         editContactInfoButton = new javax.swing.JButton();
+        classesPanel = new javax.swing.JPanel();
+        greenTitle = new javax.swing.JLabel();
+        greenSeparator = new javax.swing.JSeparator();
+        addClassButton = new javax.swing.JButton();
+        removeClassButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        classList = new javax.swing.JList();
 
         setPreferredSize(new java.awt.Dimension(448, 524));
 
@@ -95,7 +102,7 @@ public class TeacherPanel extends javax.swing.JPanel {
         contactInfoPanelLayout.setHorizontalGroup(
             contactInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contactInfoPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addGroup(contactInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contactInfoPanelLayout.createSequentialGroup()
                         .addGroup(contactInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -136,7 +143,7 @@ public class TeacherPanel extends javax.swing.JPanel {
             .addGroup(contactInfoPanelLayout.createSequentialGroup()
                 .addGap(180, 180, 180)
                 .addComponent(editContactInfoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(182, 182, 182))
         );
         contactInfoPanelLayout.setVerticalGroup(
             contactInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +152,7 @@ public class TeacherPanel extends javax.swing.JPanel {
                 .addComponent(contactInfoLabel)
                 .addGap(0, 0, 0)
                 .addComponent(contactInfoSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(11, 11, 11)
                 .addGroup(contactInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel)
                     .addComponent(firstNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,8 +168,61 @@ public class TeacherPanel extends javax.swing.JPanel {
                     .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(phoneLabel)
                     .addComponent(phoneText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addComponent(editContactInfoButton)
+                .addContainerGap())
+        );
+
+        classesPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 153, 153), new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153), new java.awt.Color(102, 102, 102)));
+
+        greenTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        greenTitle.setText("Classes");
+
+        addClassButton.setText("Add a class");
+        addClassButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addClassButtonActionPerformed(evt);
+            }
+        });
+
+        removeClassButton.setText("Remove selected class");
+
+        classList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(classList);
+
+        javax.swing.GroupLayout classesPanelLayout = new javax.swing.GroupLayout(classesPanel);
+        classesPanel.setLayout(classesPanelLayout);
+        classesPanelLayout.setHorizontalGroup(
+            classesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, classesPanelLayout.createSequentialGroup()
+                .addGap(191, 191, 191)
+                .addGroup(classesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(greenSeparator)
+                    .addComponent(greenTitle))
+                .addGap(191, 191, 191))
+            .addGroup(classesPanelLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(classesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(classesPanelLayout.createSequentialGroup()
+                        .addComponent(addClassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(removeClassButton)))
+                .addGap(20, 20, 20))
+        );
+        classesPanelLayout.setVerticalGroup(
+            classesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(classesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(greenTitle)
+                .addGap(0, 0, 0)
+                .addComponent(greenSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(classesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addClassButton)
+                    .addComponent(removeClassButton))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -170,9 +230,11 @@ public class TeacherPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(contactInfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(contactInfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(classesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -180,7 +242,9 @@ public class TeacherPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(contactInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(350, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(classesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -200,7 +264,14 @@ public class TeacherPanel extends javax.swing.JPanel {
     private void editContactInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editContactInfoButtonActionPerformed
     }//GEN-LAST:event_editContactInfoButtonActionPerformed
 
+    private void addClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClassButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addClassButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addClassButton;
+    private javax.swing.JList classList;
+    private javax.swing.JPanel classesPanel;
     private javax.swing.JLabel contactInfoLabel;
     private javax.swing.JPanel contactInfoPanel;
     private javax.swing.JSeparator contactInfoSeparator;
@@ -209,13 +280,17 @@ public class TeacherPanel extends javax.swing.JPanel {
     private javax.swing.JTextField emailText;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameText;
+    private javax.swing.JSeparator greenSeparator;
+    private javax.swing.JLabel greenTitle;
     private javax.swing.JLabel idLabel;
     private javax.swing.JTextField idText;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameText;
     private javax.swing.JLabel middleNameLabel;
     private javax.swing.JTextField middleNameText;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JTextField phoneText;
+    private javax.swing.JButton removeClassButton;
     // End of variables declaration//GEN-END:variables
 }
