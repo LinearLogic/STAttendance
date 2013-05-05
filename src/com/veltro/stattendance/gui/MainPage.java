@@ -425,8 +425,10 @@ public class MainPage extends javax.swing.JPanel{
 
         composeRecipientsText.setColumns(20);
         composeRecipientsText.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        composeRecipientsText.setLineWrap(true);
         composeRecipientsText.setRows(2);
         composeRecipientsText.setTabSize(4);
+        composeRecipientsText.setWrapStyleWord(true);
         composeRecipientsText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 153, 153), new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153), new java.awt.Color(102, 102, 102)));
         composeRecipientsScroll.setViewportView(composeRecipientsText);
 
@@ -438,15 +440,19 @@ public class MainPage extends javax.swing.JPanel{
 
         composeSubjectText.setColumns(20);
         composeSubjectText.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        composeSubjectText.setLineWrap(true);
         composeSubjectText.setRows(2);
         composeSubjectText.setTabSize(4);
+        composeSubjectText.setWrapStyleWord(true);
         composeSubjectText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 153, 153), new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153), new java.awt.Color(102, 102, 102)));
         composeSubjectScroll.setViewportView(composeSubjectText);
 
         composeMessageText.setColumns(20);
         composeMessageText.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        composeMessageText.setLineWrap(true);
         composeMessageText.setRows(2);
         composeMessageText.setTabSize(4);
+        composeMessageText.setWrapStyleWord(true);
         composeMessageText.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 153, 153), new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153), new java.awt.Color(102, 102, 102)));
         composeMessageScroll.setViewportView(composeMessageText);
 
