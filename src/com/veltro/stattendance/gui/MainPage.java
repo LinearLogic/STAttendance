@@ -33,9 +33,6 @@ public class MainPage extends javax.swing.JPanel{
     private javax.swing.JTextArea composeSubjectText;
     private javax.swing.JPanel databasePanel;
     private javax.swing.JPanel emailerPanel;
-    private javax.swing.JList entryList;
-    private javax.swing.JLabel entrySortByLabel;
-    private javax.swing.JComboBox entrySortByMenu;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton generalComposeButton;
     private javax.swing.JButton generalEditTemplateButton;
@@ -49,23 +46,26 @@ public class MainPage extends javax.swing.JPanel{
     private javax.swing.JButton greenSendButton;
     private javax.swing.JSeparator greenSeparator;
     private javax.swing.JLabel greenTitle;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel listPanel;
+    private javax.swing.JButton manageAddClassButton;
+    private javax.swing.JButton manageAddStudentButton;
+    private javax.swing.JButton manageAddTeacherButton;
+    private javax.swing.JButton manageClearButton;
+    private javax.swing.JButton manageDeleteButton;
+    private javax.swing.JPanel managePanel;
+    private javax.swing.JSeparator manageSeparator;
     private javax.swing.JTabbedPane masterTabPane;
     private javax.swing.JButton receiveButton;
     private javax.swing.JTextArea receiveInfo1;
     private javax.swing.JTextArea receiveInfo2;
     private javax.swing.JPanel receivePanel;
     private javax.swing.JPanel sendPanel;
+    private javax.swing.JList viewEntryList;
+    private javax.swing.JPanel viewPanel;
+    private javax.swing.JLabel viewSortByLabel;
+    private javax.swing.JComboBox viewSortByMenu;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -181,18 +181,18 @@ public class MainPage extends javax.swing.JPanel{
 
         masterTabPane = new javax.swing.JTabbedPane();
         databasePanel = new javax.swing.JPanel();
-        listPanel = new javax.swing.JPanel();
-        entrySortByLabel = new javax.swing.JLabel();
-        entrySortByMenu = new javax.swing.JComboBox();
+        viewPanel = new javax.swing.JPanel();
+        viewSortByLabel = new javax.swing.JLabel();
+        viewSortByMenu = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        entryList = new javax.swing.JList();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
+        viewEntryList = new javax.swing.JList();
+        managePanel = new javax.swing.JPanel();
+        manageAddTeacherButton = new javax.swing.JButton();
+        manageAddStudentButton = new javax.swing.JButton();
+        manageAddClassButton = new javax.swing.JButton();
+        manageDeleteButton = new javax.swing.JButton();
+        manageClearButton = new javax.swing.JButton();
+        manageSeparator = new javax.swing.JSeparator();
         emailerPanel = new javax.swing.JPanel();
         sendPanel = new javax.swing.JPanel();
         greenPanel = new javax.swing.JPanel();
@@ -227,109 +227,112 @@ public class MainPage extends javax.swing.JPanel{
         composeDiscardButton = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(120, 0), new java.awt.Dimension(120, 0), new java.awt.Dimension(120, 32767));
 
-        listPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "View Entries", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 128))); // NOI18N
-        listPanel.setPreferredSize(new java.awt.Dimension(302, 354));
+        viewPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "View Entries", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 128))); // NOI18N
+        viewPanel.setPreferredSize(new java.awt.Dimension(302, 354));
 
-        entrySortByLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        entrySortByLabel.setText("Sort by:");
+        viewSortByLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        viewSortByLabel.setText("Sort by:");
 
-        entrySortByMenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Teacher", "Student", "Class" }));
+        viewSortByMenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Teacher", "Student", "Class" }));
 
-        entryList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(entryList);
+        viewEntryList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(viewEntryList);
 
-        javax.swing.GroupLayout listPanelLayout = new javax.swing.GroupLayout(listPanel);
-        listPanel.setLayout(listPanelLayout);
-        listPanelLayout.setHorizontalGroup(
-            listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout viewPanelLayout = new javax.swing.GroupLayout(viewPanel);
+        viewPanel.setLayout(viewPanelLayout);
+        viewPanelLayout.setHorizontalGroup(
+            viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addGroup(listPanelLayout.createSequentialGroup()
-                        .addComponent(entrySortByLabel)
+                    .addGroup(viewPanelLayout.createSequentialGroup()
+                        .addComponent(viewSortByLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(entrySortByMenu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(viewSortByMenu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        listPanelLayout.setVerticalGroup(
-            listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listPanelLayout.createSequentialGroup()
+        viewPanelLayout.setVerticalGroup(
+            viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(entrySortByLabel)
-                    .addComponent(entrySortByMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewSortByLabel)
+                    .addComponent(viewSortByMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Manage Entries", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 128))); // NOI18N
-        jPanel1.setPreferredSize(new java.awt.Dimension(300, 182));
+        managePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Manage Entries", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 128))); // NOI18N
+        managePanel.setPreferredSize(new java.awt.Dimension(300, 182));
 
-        jButton1.setText("Add a teacher");
+        manageAddTeacherButton.setText("Add a teacher");
 
-        jButton2.setText("Add a student");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        manageAddStudentButton.setText("Add a student");
+        manageAddStudentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                manageAddStudentButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Add a class");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        manageAddClassButton.setText("Add a class");
+        manageAddClassButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                manageAddClassButtonActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Delete selected entry");
+        manageDeleteButton.setText("Delete selected entry");
 
-        jButton6.setForeground(new java.awt.Color(128, 0, 0));
-        jButton6.setText("Clear all entries");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        manageClearButton.setForeground(new java.awt.Color(128, 0, 0));
+        manageClearButton.setText("Clear all entries of the selected type");
+        manageClearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                manageClearButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout managePanelLayout = new javax.swing.GroupLayout(managePanel);
+        managePanel.setLayout(managePanelLayout);
+        managePanelLayout.setHorizontalGroup(
+            managePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(managePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(managePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(managePanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(managePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(manageAddClassButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(manageDeleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jSeparator1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manageSeparator)
+                    .addGroup(managePanelLayout.createSequentialGroup()
+                        .addComponent(manageAddTeacherButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(manageAddStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, managePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(manageClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+        );
+        managePanelLayout.setVerticalGroup(
+            managePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(managePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(managePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(manageAddTeacherButton)
+                    .addComponent(manageAddStudentButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(manageAddClassButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(manageSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(manageDeleteButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6)
+                .addComponent(manageClearButton)
                 .addContainerGap())
         );
 
@@ -338,22 +341,19 @@ public class MainPage extends javax.swing.JPanel{
         databasePanelLayout.setHorizontalGroup(
             databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(databasePanelLayout.createSequentialGroup()
-                .addGroup(databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(databasePanelLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(databasePanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(11, 11, 11)
+                .addGroup(databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(managePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(482, Short.MAX_VALUE))
         );
         databasePanelLayout.setVerticalGroup(
             databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(databasePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(listPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(viewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(14, 14, 14)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(managePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -809,15 +809,15 @@ public class MainPage extends javax.swing.JPanel{
 		loadComposePanel();
     }//GEN-LAST:event_generalEditTemplateButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void manageAddStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAddStudentButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_manageAddStudentButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void manageAddClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAddClassButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_manageAddClassButtonActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void manageClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageClearButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_manageClearButtonActionPerformed
 }
