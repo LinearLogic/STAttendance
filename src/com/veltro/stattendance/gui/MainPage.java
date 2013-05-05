@@ -31,8 +31,11 @@ public class MainPage extends javax.swing.JPanel{
     private javax.swing.JLabel composeSubjectLabel;
     private javax.swing.JScrollPane composeSubjectScroll;
     private javax.swing.JTextArea composeSubjectText;
+    private javax.swing.JPanel databasePanel;
     private javax.swing.JPanel emailerPanel;
-    private javax.swing.JTabbedPane emailerTab;
+    private javax.swing.JList entryList;
+    private javax.swing.JLabel entrySortByLabel;
+    private javax.swing.JComboBox entrySortByMenu;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton generalComposeButton;
     private javax.swing.JButton generalEditTemplateButton;
@@ -46,8 +49,11 @@ public class MainPage extends javax.swing.JPanel{
     private javax.swing.JButton greenSendButton;
     private javax.swing.JSeparator greenSeparator;
     private javax.swing.JLabel greenTitle;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JPanel listPanel;
+    private javax.swing.JTabbedPane masterTabPane;
     private javax.swing.JButton receiveButton;
     private javax.swing.JTextArea receiveInfo1;
     private javax.swing.JTextArea receiveInfo2;
@@ -166,7 +172,13 @@ public class MainPage extends javax.swing.JPanel{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        emailerTab = new javax.swing.JTabbedPane();
+        masterTabPane = new javax.swing.JTabbedPane();
+        databasePanel = new javax.swing.JPanel();
+        listPanel = new javax.swing.JPanel();
+        entrySortByLabel = new javax.swing.JLabel();
+        entrySortByMenu = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        entryList = new javax.swing.JList();
         emailerPanel = new javax.swing.JPanel();
         sendPanel = new javax.swing.JPanel();
         greenPanel = new javax.swing.JPanel();
@@ -200,6 +212,61 @@ public class MainPage extends javax.swing.JPanel{
         composeSendButton = new javax.swing.JButton();
         composeDiscardButton = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(120, 0), new java.awt.Dimension(120, 0), new java.awt.Dimension(120, 32767));
+
+        listPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "View Entries", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 128))); // NOI18N
+
+        entrySortByLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        entrySortByLabel.setText("Sort by:");
+
+        entrySortByMenu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Teacher", "Student", "Class" }));
+
+        entryList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(entryList);
+
+        javax.swing.GroupLayout listPanelLayout = new javax.swing.GroupLayout(listPanel);
+        listPanel.setLayout(listPanelLayout);
+        listPanelLayout.setHorizontalGroup(
+            listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                    .addGroup(listPanelLayout.createSequentialGroup()
+                        .addComponent(entrySortByLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(entrySortByMenu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        listPanelLayout.setVerticalGroup(
+            listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(listPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(entrySortByLabel)
+                    .addComponent(entrySortByMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout databasePanelLayout = new javax.swing.GroupLayout(databasePanel);
+        databasePanel.setLayout(databasePanelLayout);
+        databasePanelLayout.setHorizontalGroup(
+            databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(databasePanelLayout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(494, Short.MAX_VALUE))
+        );
+        databasePanelLayout.setVerticalGroup(
+            databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(databasePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(listPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(181, 181, 181))
+        );
+
+        masterTabPane.addTab("Database", databasePanel);
 
         sendPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Send Email", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 128))); // NOI18N
 
@@ -346,9 +413,9 @@ public class MainPage extends javax.swing.JPanel{
             .addGroup(sendPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(greenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(28, 28, 28)
                 .addComponent(generalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addGap(11, 11, 11))
         );
 
         receivePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Parse Incoming Email", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(0, 0, 128))); // NOI18N
@@ -498,10 +565,11 @@ public class MainPage extends javax.swing.JPanel{
         composePanelLayout.setHorizontalGroup(
             composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(composePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(composeMessageScroll, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, composePanelLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(filler1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(composeMessageScroll, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, composePanelLayout.createSequentialGroup()
                         .addComponent(composeActionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
                         .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,10 +577,9 @@ public class MainPage extends javax.swing.JPanel{
                             .addComponent(composeRecipientsLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(composeRecipientsScroll)
+                            .addComponent(composeRecipientsScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                             .addComponent(composeSubjectScroll))))
-                .addContainerGap())
-            .addComponent(filler1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
         composePanelLayout.setVerticalGroup(
             composePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -539,11 +606,11 @@ public class MainPage extends javax.swing.JPanel{
         emailerPanelLayout.setHorizontalGroup(
             emailerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(emailerPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(11, 11, 11)
                 .addGroup(emailerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(receivePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sendPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addComponent(composePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(11, 11, 11))
         );
@@ -560,17 +627,17 @@ public class MainPage extends javax.swing.JPanel{
                 .addContainerGap())
         );
 
-        emailerTab.addTab("Emailer", emailerPanel);
+        masterTabPane.addTab("Emailer", emailerPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(emailerTab)
+            .addComponent(masterTabPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(emailerTab)
+            .addComponent(masterTabPane)
         );
     }// </editor-fold>//GEN-END:initComponents
 
