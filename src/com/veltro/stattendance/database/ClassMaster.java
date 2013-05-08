@@ -100,7 +100,11 @@ public class ClassMaster {
 		return output;
 	}
 
-	public void addStudent(STAClass c) {
+	public STAClass getClass(String name) {
+		return classes.get(name);
+	}
+
+	public void addClass(STAClass c) {
 		classes.put(c.getName(), c);
 	}
 
@@ -157,6 +161,10 @@ public class ClassMaster {
 		return output;
 	}
 
+	public Teacher getTeacher(int id) {
+		return teachers.get(id);
+	}
+
 	public void addTeacher(Teacher t) {
 		teachers.put(t.getID(), t);
 	}
@@ -202,12 +210,16 @@ public class ClassMaster {
 		teachers.clear();
 	}
 
-	public Student[] getstudents() {
+	public Student[] getStudents() {
 		Student[] output = new Student[students.size()];
 		int index = 0;
 		for (Student s : students.values())
 			output[index++] = s;
 		return output;
+	}
+
+	public Student getStudent(int id) {
+		return students.get(id);
 	}
 
 	public void addStudent(Student s) {
