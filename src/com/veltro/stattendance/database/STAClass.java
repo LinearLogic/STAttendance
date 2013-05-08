@@ -56,6 +56,16 @@ public class STAClass {
 		studentRecords = new HashMap<Integer, ArrayList<String>>();
 	}
 
+	/**
+	 * This method is required in order to display the class in lists in the GUI.
+	 * 
+	 * @return The {@link #name} of the class
+	 */
+	@Override
+	public String toString() {
+		return name;
+	}
+
 	public String getName() {
 		return name;
 	}

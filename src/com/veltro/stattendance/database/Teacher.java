@@ -85,7 +85,17 @@ public class Teacher {
 	public void setID(int id) {
 		this.id = id;
 	}
-	
+
+	/**
+	 * This method is required in order to display the teacher in lists in the GUI.
+	 * 
+	 * @return The full name of the teacher, formatted like so: "last, first middle"
+	 */
+	@Override
+	public String toString() {
+		return lastName + ", " + firstName + " " + middleName;
+	}
+
 	public String getLastName() {
 		return (lastName == null) ? "" : lastName;
 	}

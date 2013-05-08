@@ -77,6 +77,16 @@ public class Student {
 		this.id = id;
 	}
 
+	/**
+	 * This method is required in order to display the student in lists in the GUI.
+	 * 
+	 * @return The full name of the student, formatted like so: "last, first middle"
+	 */
+	@Override
+	public String toString() {
+		return lastName + ", " + firstName + " " + middleName;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
