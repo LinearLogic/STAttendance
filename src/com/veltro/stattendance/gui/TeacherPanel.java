@@ -1,5 +1,8 @@
 package com.veltro.stattendance.gui;
 
+import com.veltro.stattendance.STAttendance;
+import com.veltro.stattendance.database.Teacher;
+
 /**
  * A JPanel containing components for displaying and editing {@link Teacher} information in the 'Database' tab
  * 
@@ -9,10 +12,127 @@ package com.veltro.stattendance.gui;
 public class TeacherPanel extends javax.swing.JPanel {
 
 	/**
+	 * The unique integer ID of the teacher currently being displayed
+	 */
+	private int currentTeacherID;
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addClassButton;
+    private javax.swing.JList classList;
+    private javax.swing.JPanel classesPanel;
+    private javax.swing.JLabel contactInfoLabel;
+    private javax.swing.JPanel contactInfoPanel;
+    private javax.swing.JSeparator contactInfoSeparator;
+    private javax.swing.JButton editContactInfoButton;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JTextField emailText;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JTextField firstNameText;
+    private javax.swing.JSeparator greenSeparator;
+    private javax.swing.JLabel greenTitle;
+    private javax.swing.JLabel idLabel;
+    private javax.swing.JTextField idText;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JTextField lastNameText;
+    private javax.swing.JLabel middleNameLabel;
+    private javax.swing.JTextField middleNameText;
+    private javax.swing.JLabel phoneLabel;
+    private javax.swing.JTextField phoneText;
+    private javax.swing.JButton removeClassButton;
+    // End of variables declaration//GEN-END:variables
+
+	/**
 	 * Creates new form TeacherPanel
 	 */
 	public TeacherPanel() {
 		initComponents();
+		disableFields();
+	}
+
+	/**
+	 * Calls the {@link #loadTeacherData(Teacher)} method, passing the {@link Teacher} with the provided ID
+	 * 
+	 * @param teacherID The unique ID number of the teacher whose data should be loaded into the panel for editing
+	 */
+	public void loadTeacherData(int teacherID) {
+		loadTeacherData(STAttendance.getDatabase().getTeacher(teacherID));
+	}
+
+	/**
+	 * Loads a {@link Tecaher} object to be displayed/edited, filling in the text fields in the 'Contact Info' panel
+	 * with the data of the provided teacher, and sets the {@link #currentTeacherID} to the teacher's unique ID number
+	 * 
+	 * @param t The teacher to be edited in the panel
+	 */
+	public void loadTeacherData(Teacher t) {	
+		if (t == null)
+			return;
+		currentTeacherID = t.getID();
+		firstNameText.setText(t.getFirstName());
+		middleNameText.setText(t.getMiddleName());
+		lastNameText.setText(t.getLastName()); 
+		idText.setText(Integer.toString(t.getID()));
+		emailText.setText(t.getEmailAddress());
+		phoneText.setText(t.getPhoneNumber());
+		classList.setListData(t.getClasses());
+	}
+
+	/**
+	 * Updates the teacher corresponding to the {@link #currentTeacherID} with the contents of the text fields in the
+	 * 'Contact Info' panel
+	 */
+	public void saveTeacherData() {
+		Teacher t = STAttendance.getDatabase().getTeacher(currentTeacherID);
+		if (t == null)
+			return;
+		t.setFirstName(firstNameText.getText());
+		t.setMiddleName(middleNameText.getText());
+		t.setLastName(lastNameText.getText());
+		t.setEmailAddress(emailText.getText());
+		t.setPhoneNumber(phoneText.getText());
+		try {
+			int id = Integer.parseInt(idText.getText());
+			t.setID(id);
+		} catch (NumberFormatException e) {
+			idText.setText(Integer.toString(t.getID()));
+		}
+	}
+
+	/**
+	 * Enables editing of the contents of the text fields in the 'Contact Info' panel
+	 */
+	public void enableFields() {
+		firstNameText.setEnabled(true);
+		middleNameText.setEnabled(true);
+		lastNameText.setEnabled(true);
+		idText.setEnabled(true);
+		emailText.setEnabled(true);
+		phoneText.setEnabled(true);
+	}
+
+	/**
+	 * Disables editing of the contents of the text fields in the 'Contact Info' panel
+	 */
+	public void disableFields() {
+		firstNameText.setEnabled(false);
+		middleNameText.setEnabled(false);
+		lastNameText.setEnabled(false);
+		idText.setEnabled(false);
+		emailText.setEnabled(false);
+		phoneText.setEnabled(false);
+	}
+
+	/**
+	 * Clears the contents of the text fields in the 'Contact Info' panel
+	 */
+	public void clearContactInfoFields() {
+		firstNameText.setText(null);
+		middleNameText.setText(null);
+		lastNameText.setText(null);
+		idText.setText(null);
+		emailText.setText(null);
+		phoneText.setText(null);
 	}
 
 	/**
@@ -56,35 +176,11 @@ public class TeacherPanel extends javax.swing.JPanel {
 
         firstNameLabel.setText("First name:");
 
-        firstNameText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                firstNameTextActionPerformed(evt);
-            }
-        });
-
         lastNameLabel.setText("Last name:");
-
-        lastNameText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lastNameTextActionPerformed(evt);
-            }
-        });
-
-        middleNameText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                middleNameTextActionPerformed(evt);
-            }
-        });
 
         middleNameLabel.setText("Middle name:");
 
         idLabel.setText("ID number:");
-
-        idText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idTextActionPerformed(evt);
-            }
-        });
 
         emailLabel.setText("Email:");
 
@@ -186,6 +282,11 @@ public class TeacherPanel extends javax.swing.JPanel {
         });
 
         removeClassButton.setText("Remove selected class");
+        removeClassButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeClassButtonActionPerformed(evt);
+            }
+        });
 
         classList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(classList);
@@ -248,49 +349,24 @@ public class TeacherPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void firstNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameTextActionPerformed
-    }//GEN-LAST:event_firstNameTextActionPerformed
-
-    private void lastNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameTextActionPerformed
-    }//GEN-LAST:event_lastNameTextActionPerformed
-
-    private void middleNameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_middleNameTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_middleNameTextActionPerformed
-
-    private void idTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextActionPerformed
-    }//GEN-LAST:event_idTextActionPerformed
-
     private void editContactInfoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editContactInfoButtonActionPerformed
+		if (editContactInfoButton.getText().equals("Save")) {
+			disableFields();
+			saveTeacherData();
+			editContactInfoButton.setText("Edit");
+			return;
+		}
+		enableFields();
+		editContactInfoButton.setText("Save");
     }//GEN-LAST:event_editContactInfoButtonActionPerformed
 
     private void addClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClassButtonActionPerformed
-        // TODO add your handling code here:
+        // TODO open class selection menu
     }//GEN-LAST:event_addClassButtonActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addClassButton;
-    private javax.swing.JList classList;
-    private javax.swing.JPanel classesPanel;
-    private javax.swing.JLabel contactInfoLabel;
-    private javax.swing.JPanel contactInfoPanel;
-    private javax.swing.JSeparator contactInfoSeparator;
-    private javax.swing.JButton editContactInfoButton;
-    private javax.swing.JLabel emailLabel;
-    private javax.swing.JTextField emailText;
-    private javax.swing.JLabel firstNameLabel;
-    private javax.swing.JTextField firstNameText;
-    private javax.swing.JSeparator greenSeparator;
-    private javax.swing.JLabel greenTitle;
-    private javax.swing.JLabel idLabel;
-    private javax.swing.JTextField idText;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lastNameLabel;
-    private javax.swing.JTextField lastNameText;
-    private javax.swing.JLabel middleNameLabel;
-    private javax.swing.JTextField middleNameText;
-    private javax.swing.JLabel phoneLabel;
-    private javax.swing.JTextField phoneText;
-    private javax.swing.JButton removeClassButton;
-    // End of variables declaration//GEN-END:variables
+    private void removeClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassButtonActionPerformed
+		STAttendance.getDatabase().removeClassFromTeacher(STAttendance.getDatabase().getClass((String)
+				classList.getSelectedValue()), STAttendance.getDatabase().getTeacher(currentTeacherID));
+		classList.setListData(STAttendance.getDatabase().getTeacher(currentTeacherID).getClasses());
+    }//GEN-LAST:event_removeClassButtonActionPerformed
 }
