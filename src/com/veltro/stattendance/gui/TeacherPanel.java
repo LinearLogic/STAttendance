@@ -1,6 +1,7 @@
 package com.veltro.stattendance.gui;
 
 import com.veltro.stattendance.STAttendance;
+import com.veltro.stattendance.database.STAClass;
 import com.veltro.stattendance.database.Teacher;
 
 /**
@@ -365,6 +366,12 @@ public class TeacherPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addClassButtonActionPerformed
 
     private void removeClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassButtonActionPerformed
+		if (classList.getSelectedIndex() == -1)
+			return;
+		Teacher t = STAttendance.getDatabase().getTeacher(currentTeacherID);
+		STAClass c = STAttendance.getDatabase().getClass((String) classList.getSelectedValue());
+		if (t == null || c == null)
+			return;
 		STAttendance.getDatabase().removeClassFromTeacher(STAttendance.getDatabase().getClass((String)
 				classList.getSelectedValue()), STAttendance.getDatabase().getTeacher(currentTeacherID));
 		classList.setListData(STAttendance.getDatabase().getTeacher(currentTeacherID).getClasses());

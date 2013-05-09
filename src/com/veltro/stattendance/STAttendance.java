@@ -61,13 +61,13 @@ public class STAttendance {
 	 * Sets the active JPanel to the {@link MainPage}
 	 */
 	public static void loadMainPage() {
+		database = new ClassMaster();
 		mailer.loadTemplates();
 		frame.getContentPane().removeAll();
 		frame.getContentPane().add(new MainPage());
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		database = new ClassMaster();
 	}
 
 	public static JFrame getFrame() {

@@ -76,6 +76,7 @@ public class Teacher {
 		this.lastName = lastName;
 		email = emailAddress;
 		this.phoneNumber = phoneNumber;
+		classes = new HashSet<String>();
 	}
 
 	public int getID() {
