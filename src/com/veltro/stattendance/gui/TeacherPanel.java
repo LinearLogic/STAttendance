@@ -61,7 +61,7 @@ public class TeacherPanel extends javax.swing.JPanel {
 	}
 
 	/**
-	 * Loads a {@link Tecaher} object to be displayed/edited, filling in the text fields in the 'Contact Info' panel
+	 * Loads a {@link Teacher} object to be displayed/edited, filling in the text fields in the 'Contact Info' panel
 	 * with the data of the provided teacher, and sets the {@link #currentTeacherID} to the teacher's unique ID number
 	 * 
 	 * @param t The teacher to be edited in the panel
@@ -92,6 +92,8 @@ public class TeacherPanel extends javax.swing.JPanel {
 		t.setLastName(lastNameText.getText());
 		t.setEmailAddress(emailText.getText());
 		t.setPhoneNumber(phoneText.getText());
+
+		// Update the teacher's ID number:
 		try {
 			int id = Integer.parseInt(idText.getText());
 			t.setID(id);
@@ -238,9 +240,9 @@ public class TeacherPanel extends javax.swing.JPanel {
                                 .addComponent(phoneText, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
             .addGroup(contactInfoPanelLayout.createSequentialGroup()
-                .addGap(180, 180, 180)
+                .addGap(181, 181, 181)
                 .addComponent(editContactInfoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(182, 182, 182))
+                .addGap(181, 181, 181))
         );
         contactInfoPanelLayout.setVerticalGroup(
             contactInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,8 +382,7 @@ public class TeacherPanel extends javax.swing.JPanel {
 		STAClass c = STAttendance.getDatabase().getClass((String) classList.getSelectedValue());
 		if (t == null || c == null)
 			return;
-		STAttendance.getDatabase().removeClassFromTeacher(STAttendance.getDatabase().getClass((String)
-				classList.getSelectedValue()), STAttendance.getDatabase().getTeacher(currentTeacherID));
-		classList.setListData(STAttendance.getDatabase().getTeacher(currentTeacherID).getClasses());
+		STAttendance.getDatabase().removeClassFromTeacher(c, t);
+		classList.setListData(t.getClasses());
     }//GEN-LAST:event_removeClassButtonActionPerformed
 }

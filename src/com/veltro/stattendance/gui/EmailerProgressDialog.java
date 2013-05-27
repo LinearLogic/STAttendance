@@ -19,7 +19,7 @@ import javax.swing.SwingWorker;
 public class EmailerProgressDialog extends JDialog implements PropertyChangeListener {
 
 	/**
-	 * A queue (FIFO list) of {@link EmailMessage messages} to be sent while the progress box is open
+	 * The list of {@link EmailMessage messages} to be sent while the progress box is open
 	 */
 	private ArrayList<EmailMessage> mailToSend;
 

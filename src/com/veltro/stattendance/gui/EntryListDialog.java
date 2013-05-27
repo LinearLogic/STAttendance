@@ -14,7 +14,17 @@ import com.veltro.stattendance.database.Teacher;
  */
 public class EntryListDialog extends javax.swing.JDialog {
 
+	/**
+	 * The flag used to determine whether the database should be updated based on the selected items (enables canceling
+	 * of entry additions)
+	 */
 	private boolean addOnExit;
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton addButton;
+	private javax.swing.JList entryList;
+	private javax.swing.JScrollPane listScrollPanel;
+	// End of variables declaration//GEN-END:variables
 
 	/**
 	 * Creates new form EntryListDialog
@@ -118,10 +128,4 @@ public class EntryListDialog extends javax.swing.JDialog {
 			return null;
 		return entryList.getSelectedValues();
 	}
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
-    private javax.swing.JList entryList;
-    private javax.swing.JScrollPane listScrollPanel;
-    // End of variables declaration//GEN-END:variables
 }
