@@ -17,7 +17,7 @@ import com.veltro.stattendance.gui.MainPage;
  * Main class - contains the {@link #frame GUI window object} and {@link #main(String[]) program entry point}
  * 
  * @author LinearLogic
- * @version 0.4.4
+ * @version 0.4.5
  */
 public class STAttendance {
 
@@ -45,7 +45,8 @@ public class STAttendance {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent event) {
-				mailer.saveTemplates();
+				if (mailer != null)
+					mailer.saveTemplates();
 				System.exit(0);
 			}
 		});

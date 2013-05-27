@@ -57,7 +57,7 @@ public class EmailerProgressDialog extends JDialog implements PropertyChangeList
 	 * {@link #mailToSend} queue.
 	 */
 	public void loadInSendMode() {
-		setTitle("Sending email...");
+		setTitle("Sending Email...");
 		progressBar.setValue(0);
 		sendLabel.setVisible(true);
 		recipientLabel.setText("");
@@ -72,7 +72,7 @@ public class EmailerProgressDialog extends JDialog implements PropertyChangeList
 	 * Sets up the dialog box to show progress through an inbox parsing task, and then displays the window
 	 */
 	public void loadInParseMode() {
-		setTitle("Parsing email...");
+		setTitle("Parsing Email...");
 		progressBar.setValue(0);
 		sendLabel.setVisible(false);
 		recipientLabel.setText("Parsing inbox/updating data...");

@@ -17,7 +17,7 @@ public class TeacherPanel extends javax.swing.JPanel {
 	 */
 	private int currentTeacherID;
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addClassButton;
     private javax.swing.JList classList;
     private javax.swing.JPanel classesPanel;
@@ -275,7 +275,7 @@ public class TeacherPanel extends javax.swing.JPanel {
         greenTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         greenTitle.setText("Classes");
 
-        addClassButton.setText("Add a class");
+        addClassButton.setText("Add classes...");
         addClassButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addClassButtonActionPerformed(evt);
@@ -362,7 +362,15 @@ public class TeacherPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_editContactInfoButtonActionPerformed
 
     private void addClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClassButtonActionPerformed
-        // TODO open class selection menu
+		EntryListDialog classListDialog = new EntryListDialog(STAttendance.getFrame(), true);
+		classListDialog.loadWithClasses();
+		Object[] classObjs = classListDialog.getSelectedItems();
+		if (classObjs == null || classObjs.length == 0)
+			return;
+		Teacher t = STAttendance.getDatabase().getTeacher(currentTeacherID);
+		for (Object classObj : classObjs)
+			STAttendance.getDatabase().addClassToTeacher((STAClass) classObj, t);
+		classList.setListData(t.getClasses()); // Update class list
     }//GEN-LAST:event_addClassButtonActionPerformed
 
     private void removeClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassButtonActionPerformed

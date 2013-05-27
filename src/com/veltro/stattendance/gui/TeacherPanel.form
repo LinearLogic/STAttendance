@@ -299,7 +299,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="addClassButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add a class"/>
+            <Property name="text" type="java.lang.String" value="Add classes..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addClassButtonActionPerformed"/>
