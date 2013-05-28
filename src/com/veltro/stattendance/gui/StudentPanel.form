@@ -152,9 +152,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="firstNameText">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="firstNameTextActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lastNameLabel">
           <Properties>
@@ -162,14 +159,8 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="lastNameText">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lastNameTextActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="middleNameText">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="middleNameTextActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="middleNameLabel">
           <Properties>
@@ -182,9 +173,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="idText">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idTextActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="formNumberLabel">
           <Properties>
@@ -200,9 +188,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="formNumberText">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="formNumberTextActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -226,17 +211,17 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="greenSeparator" max="32767" attributes="0"/>
-                      <Component id="greenTitle" min="-2" max="-2" attributes="0"/>
+                      <Component id="classesSeparator" max="32767" attributes="0"/>
+                      <Component id="classesLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <Component id="classListScroll" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="addClassButton" min="-2" pref="141" max="-2" attributes="0"/>
+                          <Component id="addClassesButton" min="-2" pref="141" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="removeClassButton" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -249,23 +234,23 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="greenTitle" min="-2" max="-2" attributes="0"/>
+                  <Component id="classesLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-                  <Component id="greenSeparator" min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="classesSeparator" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="addClassButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="addClassesButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="removeClassButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="210" max="32767" attributes="0"/>
+                  <Component id="classListScroll" pref="210" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="greenTitle">
+        <Component class="javax.swing.JLabel" name="classesLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
@@ -273,14 +258,14 @@
             <Property name="text" type="java.lang.String" value="Classes"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSeparator" name="greenSeparator">
+        <Component class="javax.swing.JSeparator" name="classesSeparator">
         </Component>
-        <Component class="javax.swing.JButton" name="addClassButton">
+        <Component class="javax.swing.JButton" name="addClassesButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add classes..."/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addClassButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addClassesButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="removeClassButton">
@@ -291,7 +276,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeClassButtonActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+        <Container class="javax.swing.JScrollPane" name="classListScroll">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>

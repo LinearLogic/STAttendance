@@ -1,6 +1,5 @@
 package com.veltro.stattendance.database;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -32,14 +31,18 @@ public class STAClass {
 	private int teacherID;
 
 	/**
-	 * A directory of attendance record entries (stored as strings formatted as shown below) indexed by student. Only
-	 * instances of absence or tardiness are recorded; no entry should be made if a student is in class on time.
+	 * A directory of attendance record entries (stored as strings formatted as shown below) indexed by student and
+	 * (for each student) by date. Only instances of absence or tardiness are recorded; no entry should be made if a
+	 * student is in class on time.
 	 * <p>
-	 * <b>Entry values:</b>
+	 * <b>Date string format:</b>
+	 * "yyyy:mm:dd"
+	 * <p>
+	 * <b>Attendance record values:</b>
 	 * Absences: excused = 0, unexcused = -1, senior cut = -2<br>
 	 * Tardiness: the entry value is the number of minutes the student was late to class
 	 */
-	private HashMap<Integer, ArrayList<String>> studentRecords;
+	private HashMap<Integer, HashMap<String, Integer>> studentRecords;
 
 	/**
 	 * Constructor - initializes the class's {@link #name}, {@link #periods}, and {@link #teacherID} and instantiates
@@ -53,7 +56,7 @@ public class STAClass {
 		this.name = name;
 		this.periods = periods;
 		this.teacherID = teacherID;
-		studentRecords = new HashMap<Integer, ArrayList<String>>();
+		studentRecords = new HashMap<Integer, HashMap<String, Integer>>();
 	}
 
 	/**
@@ -107,11 +110,11 @@ public class STAClass {
 	}
 
 	public void addStudent(Student student) {
-		studentRecords.put(student.getID(), new ArrayList<String>());
+		studentRecords.put(student.getID(), new HashMap<String, Integer>());
 	}
 
 	public void addStudent(int studentID) {
-		studentRecords.put(studentID, new ArrayList<String>());
+		studentRecords.put(studentID, new HashMap<String, Integer>());
 	}
 
 	public void removeStudent(Student student) {
@@ -126,16 +129,65 @@ public class STAClass {
 		studentRecords.clear();
 	}
 
-	public String[] getAttendanceRecords(Student s) {
-		return getAttendanceRecords(s.getID());
+	public int getAttendanceRecord(Student s, String date) {
+		return studentRecords.get(s.getID()).get(date);
 	}
 
-	public String[] getAttendanceRecords(int studentID) {
-		ArrayList<String> studentHistory = studentRecords.get(studentID);
-		String[] output = new String[studentHistory.size()];
-		int index = 0;
-		for (String entry : studentHistory)
-			output[index++] = entry;
-		return output;
+	public int getAttendanceRecord(int studentID, String date) {
+		return studentRecords.get(studentID).get(date);
+	}
+
+	public HashMap<String, Integer> getAttendanceRecords(Student s) {
+		return studentRecords.get(s.getID());
+	}
+
+	public HashMap<String, Integer> getAttendanceRecords(int studentID) {
+		return studentRecords.get(studentID);
+	}
+
+	/**
+	 * Adds an entry in the attendance records.  See the {@link #studentRecords} javadoc for info concerning the
+	 * formatting of date strings and attendance record values.
+	 * 
+	 * @param s The student for whom an entry is being added
+	 * @param date The date of the entry
+	 * @param record The entry value
+	 */
+	public void addAttendanceRecord(Student s, String date, int record) {
+		studentRecords.get(s.getID()).put(date, record);
+	}
+
+	/**
+	 * Adds an entry in the attendance records.  See the {@link #studentRecords} javadoc for info concerning the
+	 * formatting of date strings and attendance record values.
+	 * 
+	 * @param studentID The ID number of the student for whom an entry is being added
+	 * @param date The date of the entry
+	 * @param record The entry value
+	 */
+	public void addAttendanceRecord(int studentID, String date, int record) {
+		studentRecords.get(studentID).put(date, record);
+	}
+
+	/**
+	 * Removes the entry for the provided student and date (if any exists) from the attendance records. See the
+	 * {@link #studentRecords} javadoc for info concerning the formatting of date strings.
+	 * 
+	 * @param s The student for whom an entry is being removed
+	 * @param date The date of the entry
+	 */
+	public void removeAttendanceRecord(Student s, String date) {
+		studentRecords.get(s.getID()).remove(date);
+	}
+
+	/**
+	 * Removes the entry for the provided student and date (if any exists) from the attendance records. See the
+	 * {@link #studentRecords} javadoc for info concerning the formatting of date strings.
+	 * 
+	 * @param studentID The ID number of the student for whom an entry is being removed
+	 * @param date The date of the entry
+	 */
+	public void removeAttendanceRecord(int studentID, String date) {
+		studentRecords.get(studentID).remove(date);
 	}
 }

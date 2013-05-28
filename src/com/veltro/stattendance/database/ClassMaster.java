@@ -129,7 +129,7 @@ public class ClassMaster {
 		if (c == null)
 			return;
 		try {
-			teachers.remove((Integer) c.getTeacherID());
+			teachers.get((Integer) c.getTeacherID()).removeClass(className);
 		} catch (NullPointerException e) { }
 		for (int id : c.getStudentIDs()) {
 			try {

@@ -5,6 +5,7 @@ import com.veltro.stattendance.database.ClassMaster;
 import com.veltro.stattendance.database.STAClass;
 import com.veltro.stattendance.database.Student;
 import com.veltro.stattendance.database.Teacher;
+import javax.swing.ListSelectionModel;
 
 /**
  * A dialog box is used to display a list of classes, teachers, or students from which items can be selected
@@ -40,6 +41,7 @@ public class EntryListDialog extends javax.swing.JDialog {
 	 * the dialog visible and active
 	 */
 	public void loadWithClasses() {
+		setSelectionMode(2);
 		setTitle("Add Classes...");
 		entryList.setListData(STAttendance.getDatabase().getClasses());
 		setEnabled(true);
@@ -51,6 +53,7 @@ public class EntryListDialog extends javax.swing.JDialog {
 	 * the dialog visible and active
 	 */
 	public void loadWithTeachers() {
+		setSelectionMode(0);
 		setTitle("Add Teachers...");
 		entryList.setListData(STAttendance.getDatabase().getTeachers());
 		setEnabled(true);
@@ -61,10 +64,29 @@ public class EntryListDialog extends javax.swing.JDialog {
 	 * the dialog visible and active
 	 */
 	public void loadWithStudents() {
+		setSelectionMode(2);
 		setTitle("Add Students...");
 		entryList.setListData(STAttendance.getDatabase().getStudents());
 		setEnabled(true);
 		setVisible(true);
+	}
+
+	/**
+	 * Sets the selection mode of the entry list based on the provided integer value: 0 if single item, 1 if single
+	 * interval, any other number if multiple intervals.
+	 */
+	public void setSelectionMode(int intervalCount) {
+		switch (intervalCount) {
+			case 0:
+				entryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				break;
+			case 1:
+				entryList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+				break;
+			default:
+				entryList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+				break;
+		}
 	}
 
 	/**

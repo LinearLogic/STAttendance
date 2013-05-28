@@ -18,9 +18,12 @@ public class StudentPanel extends javax.swing.JPanel {
 	private int currentStudentID;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addClassButton;
+    private javax.swing.JButton addClassesButton;
     private javax.swing.JList classList;
+    private javax.swing.JScrollPane classListScroll;
+    private javax.swing.JLabel classesLabel;
     private javax.swing.JPanel classesPanel;
+    private javax.swing.JSeparator classesSeparator;
     private javax.swing.JLabel contactInfoLabel;
     private javax.swing.JPanel contactInfoPanel;
     private javax.swing.JSeparator contactInfoSeparator;
@@ -29,11 +32,8 @@ public class StudentPanel extends javax.swing.JPanel {
     private javax.swing.JTextField firstNameText;
     private javax.swing.JLabel formNumberLabel;
     private javax.swing.JTextField formNumberText;
-    private javax.swing.JSeparator greenSeparator;
-    private javax.swing.JLabel greenTitle;
     private javax.swing.JLabel idLabel;
     private javax.swing.JTextField idText;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameText;
     private javax.swing.JLabel middleNameLabel;
@@ -88,14 +88,6 @@ public class StudentPanel extends javax.swing.JPanel {
 		s.setMiddleName(middleNameText.getText());
 		s.setLastName(lastNameText.getText());
 
-		// Update the student's ID number:
-		try {
-			int id = Integer.parseInt(idText.getText());
-			s.setID(id);
-		} catch (NumberFormatException e) {
-			idText.setText(Integer.toString(s.getID()));
-		}
-
 		// Update the student's form number:
 		try {
 			int formNum = Integer.parseInt(formNumberText.getText());
@@ -106,6 +98,19 @@ public class StudentPanel extends javax.swing.JPanel {
 			s.setFormNumber((byte) formNum);
 		} catch (NumberFormatException e) {
 			formNumberText.setText(Byte.toString(s.getFormNumber()));
+		}
+
+		// Update the student's ID number:
+		try {
+			int id = Integer.parseInt(idText.getText());
+			if (id != s.getID()) { // The student directory must be updated
+				int oldID = s.getID();
+				s.setID(id);
+				STAttendance.getDatabase().addStudent(s);
+				STAttendance.getDatabase().removeStudent(oldID);
+			}
+		} catch (NumberFormatException e) {
+			idText.setText(Integer.toString(s.getID()));
 		}
 	}
 
@@ -165,11 +170,11 @@ public class StudentPanel extends javax.swing.JPanel {
         editContactInfoButton = new javax.swing.JButton();
         formNumberText = new javax.swing.JTextField();
         classesPanel = new javax.swing.JPanel();
-        greenTitle = new javax.swing.JLabel();
-        greenSeparator = new javax.swing.JSeparator();
-        addClassButton = new javax.swing.JButton();
+        classesLabel = new javax.swing.JLabel();
+        classesSeparator = new javax.swing.JSeparator();
+        addClassesButton = new javax.swing.JButton();
         removeClassButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        classListScroll = new javax.swing.JScrollPane();
         classList = new javax.swing.JList();
 
         setPreferredSize(new java.awt.Dimension(448, 524));
@@ -264,13 +269,13 @@ public class StudentPanel extends javax.swing.JPanel {
 
         classesPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(153, 153, 153), new java.awt.Color(204, 204, 255), new java.awt.Color(153, 153, 153), new java.awt.Color(102, 102, 102)));
 
-        greenTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        greenTitle.setText("Classes");
+        classesLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        classesLabel.setText("Classes");
 
-        addClassButton.setText("Add classes...");
-        addClassButton.addActionListener(new java.awt.event.ActionListener() {
+        addClassesButton.setText("Add classes...");
+        addClassesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addClassButtonActionPerformed(evt);
+                addClassesButtonActionPerformed(evt);
             }
         });
 
@@ -282,7 +287,7 @@ public class StudentPanel extends javax.swing.JPanel {
         });
 
         classList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(classList);
+        classListScroll.setViewportView(classList);
 
         javax.swing.GroupLayout classesPanelLayout = new javax.swing.GroupLayout(classesPanel);
         classesPanel.setLayout(classesPanelLayout);
@@ -291,15 +296,15 @@ public class StudentPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, classesPanelLayout.createSequentialGroup()
                 .addGap(191, 191, 191)
                 .addGroup(classesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(greenSeparator)
-                    .addComponent(greenTitle))
+                    .addComponent(classesSeparator)
+                    .addComponent(classesLabel))
                 .addGap(191, 191, 191))
             .addGroup(classesPanelLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(classesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                    .addComponent(classListScroll)
                     .addGroup(classesPanelLayout.createSequentialGroup()
-                        .addComponent(addClassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addClassesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addComponent(removeClassButton)))
                 .addGap(20, 20, 20))
@@ -308,15 +313,15 @@ public class StudentPanel extends javax.swing.JPanel {
             classesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(classesPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(greenTitle)
+                .addComponent(classesLabel)
                 .addGap(0, 0, 0)
-                .addComponent(greenSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(classesSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(classesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addClassButton)
+                    .addComponent(addClassesButton)
                     .addComponent(removeClassButton))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                .addComponent(classListScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -353,7 +358,7 @@ public class StudentPanel extends javax.swing.JPanel {
 		editContactInfoButton.setText("Save");
     }//GEN-LAST:event_editContactInfoButtonActionPerformed
 
-    private void addClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClassButtonActionPerformed
+    private void addClassesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClassesButtonActionPerformed
 		EntryListDialog classListDialog = new EntryListDialog(STAttendance.getFrame(), true);
 		classListDialog.loadWithClasses();
 		Object[] classObjs = classListDialog.getSelectedItems();
@@ -363,7 +368,7 @@ public class StudentPanel extends javax.swing.JPanel {
 		for (Object classObj : classObjs)
 			STAttendance.getDatabase().addStudentToClass(s, (STAClass) classObj);
 		classList.setListData(s.getClasses()); // Update class list
-    }//GEN-LAST:event_addClassButtonActionPerformed
+    }//GEN-LAST:event_addClassesButtonActionPerformed
 
     private void removeClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassButtonActionPerformed
 		if (classList.getSelectedIndex() == -1)
